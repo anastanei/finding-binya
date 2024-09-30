@@ -4,7 +4,8 @@
   "description": "",
   "main": "public/js/index.js",
   "scripts": {
-    "tailwind": "npx tailwindcss -i ./src/tailwind-input.css -o ./public/css/tailwind.css --watch"
+    "style": "sass --watch --no-source-map src/scss:src",
+    "tailwind": "npx tailwindcss -i ./src/tailwind-input.scss -o ./public/css/tailwind.css --watch"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
     "globals": "^15.9.0",
+    "sass": "^1.79.4",
     "tailwindcss": "^3.4.13"
   }
 }

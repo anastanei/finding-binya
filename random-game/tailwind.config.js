@@ -3,6 +3,7 @@
 module.exports = {
   content: [
     './*.html',
+    './src/**/*.{html,js,jsx,ts,tsx,scss}',
     './public/js/**/*.js' ],
   theme: {
     extend: {
@@ -10,9 +11,8 @@ module.exports = {
         custom: {
           background: '#D9D9D9',
           text: '#285AEB',
-          secondaryText: '#323232',
+          secondaryText: '#d6249f',
           accent: '#fd7080',
-          secondary: '#d6249f'
         },
       },
       backgroundImage: {

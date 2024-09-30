@@ -1,3 +1,96 @@
+@font-face {
+  font-family: "Georgia";
+
+  src: url("../../public/fonts/Georgia.woff2") format("woff2"), url("../../public/fonts/Georgia.woff") format("woff");
+
+  font-weight: normal;
+
+  font-style: normal;
+
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Georgia";
+
+  src: url("../../public/fonts/Georgia-Bold.woff2") format("woff2"), url("../../public/fonts/Georgia-Bold.woff") format("woff");
+
+  font-weight: 700;
+
+  font-style: normal;
+
+  font-display: swap;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d9d9d9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #285aeb;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d6249f;
+}
+
+@media (hover: hover) {
+  .custom-hover:hover {
+    opacity: 0.7;
+  }
+}
+
+.custom-hover {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.custom-hover:active {
+  opacity: 0.5;
+}
+
+.extend-click {
+  position: relative;
+}
+
+.extend-click::before {
+  content: "";
+  position: absolute;
+  top: -0.5rem;
+  bottom: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+}
+
+.footer-svg {
+  display: inline;
+  height: 100%;
+  width: 100%;
+}
+
+@media (any-hover: none) and (any-pointer: coarse) {
+  .touch-only {
+    display: block;
+  }
+}
+
+@media (any-hover: hover) and (any-pointer: fine) {
+  .touch-only {
+    display: none;
+  }
+}
+
+.custom-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -588,8 +681,28 @@ video {
   }
 }
 
+.visible {
+  visibility: visible;
+}
+
+.absolute {
+  position: absolute;
+}
+
 .relative {
   position: relative;
+}
+
+.-bottom-2 {
+  bottom: -0.5rem;
+}
+
+.-left-2 {
+  left: -0.5rem;
+}
+
+.-top-2 {
+  top: -0.5rem;
 }
 
 .z-10 {
@@ -603,6 +716,14 @@ video {
 
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -718,116 +839,18 @@ video {
   color: rgb(40 90 235 / var(--tw-text-opacity));
 }
 
-@font-face {
-  font-family: "Georgia";
-
-  src: url("../../public/fonts/Georgia.woff2") format("woff2"),
-    url("../../public/fonts/Georgia.woff") format("woff");
-
-  font-weight: normal;
-
-  font-style: normal;
-
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Georgia";
-
-  src: url("../../public/fonts/Georgia-Bold.woff2") format("woff2"),
-    url("../../public/fonts/Georgia-Bold.woff") format("woff");
-
-  font-weight: 700;
-
-  font-style: normal;
-
-  font-display: swap;
-}
-
-:root {
-  --custom-text: #285AEB;
-  --custom-accent: #fd7080;
-  --custom-secondary: #d6249f;
-  --offset: 7px;
-  --rem: calc(100% - var(--offset));
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: #555;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #eeeeee;
-}
-
-@media (hover: hover) {
-  .custom-hover:hover {
-    opacity: 0.7;
-  }
-}
-
-.custom-hover {
+.transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-300 {
   transition-duration: 300ms;
+}
+
+.ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-}
-
-.custom-hover:active {
-  opacity: 0.5;
-}
-
-.extend-click {
-  position: relative;
-  &::before {
-    content: '';
-  }
-  &::before {
-    position: absolute;
-  }
-  &::before {
-    top: -0.5rem;
-  }
-  &::before {
-    bottom: -0.5rem;
-  }
-  &::before {
-    left: -0.5rem;
-  }
-  &::before {
-    right: -0.5rem;
-  }
-}
-
-.footer-svg {
-  display: inline;
-  height: 100%;
-  width: 100%;
-}
-
-@media (any-hover: none) and (any-pointer: coarse) {
-  .touch-only {
-    display: block;
-  }
-}
-
-@media (any-hover: hover) and (any-pointer: fine) {
-  .touch-only {
-    display: none;
-  }
-}
-
-.custom-visible {
-  visibility: visible;
-  opacity: 1;
 }
 
 @media (min-width: 640px) {

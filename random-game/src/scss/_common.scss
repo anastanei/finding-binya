@@ -1,0 +1,39 @@
+@media (hover: hover) {
+  .custom-hover {
+    @apply hover:opacity-70;
+  }
+}
+
+.custom-hover {
+  @apply transition-all duration-300 ease-out active:opacity-50;
+}
+
+.extend-click {
+  @apply relative;
+
+  &::before {
+    content: "";
+    @apply absolute -top-2 -bottom-2 -left-2 -right-2;
+  }
+}
+
+.footer-svg {
+  @apply inline w-full h-full;
+}
+
+@media (any-hover: none) and (any-pointer: coarse) {
+  .touch-only {
+    display: block;
+  }
+}
+
+@media (any-hover: hover) and (any-pointer: fine) {
+  .touch-only {
+    display: none;
+  }
+}
+
+.custom-visible {
+  visibility: visible;
+  opacity: 1;
+}
