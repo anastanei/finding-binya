@@ -68,6 +68,10 @@ html {
   clip-path: polygon(41% 51%, 61% 50%, 80% 28%, 100% 51%, 100% 100%, 0 100%, 0 52%, 20% 0);
 }
 
+.grid-min-content {
+  grid-auto-rows: min-content;
+}
+
 @media (hover: hover) {
   .custom-hover {
     @apply hover:text-custom-accent;

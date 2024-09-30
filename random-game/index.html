@@ -21,8 +21,8 @@
 <body class="text-xs leading-none font-georgia sm:text-lg lg:text-base 2xl:text-xl text-custom-text">
   <div class="relative flex flex-col justify-between min-h-screen">
     <!--bg-center bg-[url('../../public/img/background.jpg')] -->
-    <div class="absolute inset-0 grid grid-rows-[1fr_2rem_1fr]">
-      <div class="relative backround-sky text-custom-text overflow-x-hidden bg-custom-text flex items-end">
+    <div class="absolute inset-0 grid grid-rows-[10fr_1rem_1fr]">
+      <div class="relative backround-sky text-custom-text grow overflow-x-hidden bg-custom-text flex items-end">
         <ul class="houses relative flex h-1/2">
           <li class="house ">
           </li>
@@ -42,11 +42,12 @@
         <img class="h-1/2" src="./public/img/cat.webp" alt="cat">
       </div>
     </div>
-    <main class="relative z-10 pt-4 sm:pt-6 md:pt-8 lg:pt-12 xl:pt-16">
-      <div class="container container-custom flex flex-col items-center justify-center">
-        <h1 class="mb-6 text-xl select-none sm:text-2xl 2xl:text-4xl">Save the Cat</h1>
-        <ul class="container" data-container>
-
+    <main class="relative z-10 pt-4 sm:pt-6 md:pt-8 lg:pt-12 xl:pt-16 grow items-center justify-center flex">
+      <div class="container container-custom flex flex-col items-center grow auto-rows-[min-content]">
+        <!-- <h1 class="mb-6 text-xl select-none sm:text-2xl 2xl:text-4xl">Save the Cat</h1> -->
+        <ul
+          class="container inline-grid gap-1 bg-opacity-50 justify-center p-3 bg-custom-text w-auto align-center grid-min-content"
+          data-container>
         </ul>
       </div>
     </main>
