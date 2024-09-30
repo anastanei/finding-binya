@@ -1,32 +1,63 @@
 {
-  "name": "js30-random-game",
-  "version": "1.0.0",
-  "description": "",
-  "main": "public/js/index.js",
-  "scripts": {
-    "style": "sass --watch --no-source-map src/scss:src",
-    "tailwind": "npx tailwindcss -i ./src/tailwind-input.scss -o ./public/css/tailwind.css --watch"
+  "workbench.colorTheme": "GitHub Dark Dimmed",
+  "workbench.iconTheme": "material-icon-theme",
+  "emmet.triggerExpansionOnTab": true,
+  "files.associations": {
+    "*html": "html"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rolling-scopes-school/anastanei-JSFEPRESCHOOL2024Q2.git"
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
   },
-  "author": "Anastasiia Nikonova",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rolling-scopes-school/anastanei-JSFEPRESCHOOL2024Q2/issues"
+  "editor.accessibilitySupport": "off",
+  "emmet.syntaxProfiles": {
+    "vue-html": "html",
+    "vue": "html"
   },
-  "homepage": "https://github.com/rolling-scopes-school/anastanei-JSFEPRESCHOOL2024Q2#readme",
-  "devDependencies": {
-    "@eslint/js": "^9.11.1",
-    "eslint": "^8.57.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "globals": "^15.9.0",
-    "sass": "^1.79.4",
-    "tailwindcss": "^3.4.13"
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "dependencies": {
-    "normalize.css": "^8.0.1"
-  }
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.formatOnPaste": true,
+  "editor.fontWeight": "normal",
+  "eslint.runtime": "",
+  "eslint.format.enable": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "nunjucks"
+  ],
+  "explorer.confirmDragAndDrop": false,
+  "editor.tabSize": 2,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "workbench.settings.applyToAllProfiles": [],
+  "gitlens.graph.minimap.enabled": false,
+
+  // Включаем автоформатирование при сохранении
+  "editor.formatOnSave": true,
+
+  // Используем ESLint как форматтер по умолчанию
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+
+  // Убедитесь, что Prettier работает для всех поддерживаемых форматов
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  // Настройки для Prettier, чтобы обеспечить единообразие форматирования
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.tabWidth": 2,
+  "prettier.semi": true
 }
