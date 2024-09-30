@@ -931,6 +931,14 @@ video {
   fill: #E2D19E;
 }
 
+.fill-custom-accent {
+  fill: #C6AD6B;
+}
+
+.fill-custom-secondaryBackground {
+  fill: #847349;
+}
+
 .px-7 {
   padding-left: 1.75rem;
   padding-right: 1.75rem;
