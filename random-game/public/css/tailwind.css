@@ -27,20 +27,92 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #d9d9d9;
+  background: #3E576E;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #285aeb;
+  background: #E2D19E;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d6249f;
+  background: #7A674F;
+}
+
+html {
+  --tw-bg-opacity: 1;
+  background-color: rgb(62 87 110 / var(--tw-bg-opacity));
+}
+
+.container-custom {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 120rem;
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-custom {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.backround-sky {
+  background: linear-gradient(15deg, #C6AD6B 0%, #3E576E 60%, #3E576E 100%);
+}
+
+.backround-sky::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns%3D"http%3A//www.w3.org/2000/svg" viewBox%3D"0 0 100 100"%3E%3Ccircle cx%3D"20" cy%3D"20" r%3D"1.5" fill%3D"%23E2D19E" /%3E%3Ccircle cx%3D"70" cy%3D"50" r%3D"1.5" fill%3D"%23E2D19E" /%3E%3Ccircle cx%3D"40" cy%3D"80" r%3D"1" fill%3D"%23E2D19E" /%3E%3Ccircle cx%3D"90" cy%3D"20" r%3D"1.2" fill%3D"%23E2D19E" /%3E%3Ccircle cx%3D"30" cy%3D"50" r%3D"1.7" fill%3D"%23E2D19E" /%3E%3C/svg%3E');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.5;
+}
+
+.houses::before {
+  content: "";
+  position: absolute;
+  top: 52%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #3E576E;
+}
+
+.house {
+  height: 100%;
+  width: 14rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(62 87 110 / var(--tw-bg-opacity));
+  clip-path: polygon(41% 51%, 61% 50%, 80% 28%, 100% 51%, 100% 100%, 0 100%, 0 52%, 20% 0);
 }
 
 @media (hover: hover) {
   .custom-hover:hover {
-    opacity: 0.7;
+    --tw-text-opacity: 1;
+    color: rgb(198 173 107 / var(--tw-text-opacity));
   }
 }
 
@@ -693,6 +765,10 @@ video {
   position: relative;
 }
 
+.inset-0 {
+  inset: 0px;
+}
+
 .-bottom-2 {
   bottom: -0.5rem;
 }
@@ -730,6 +806,14 @@ video {
   display: flex;
 }
 
+.h-1\/2 {
+  height: 50%;
+}
+
+.h-5 {
+  height: 1.25rem;
+}
+
 .h-7 {
   height: 1.75rem;
 }
@@ -742,6 +826,10 @@ video {
   min-height: 100vh;
 }
 
+.w-56 {
+  width: 14rem;
+}
+
 .w-7 {
   width: 1.75rem;
 }
@@ -752,6 +840,10 @@ video {
 
 .max-w-custom {
   max-width: 120rem;
+}
+
+.grow {
+  flex-grow: 1;
 }
 
 .select-none {
@@ -788,13 +880,35 @@ video {
   gap: 1.25rem;
 }
 
-.bg-custom-background {
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.bg-custom-accent {
   --tw-bg-opacity: 1;
-  background-color: rgb(217 217 217 / var(--tw-bg-opacity));
+  background-color: rgb(198 173 107 / var(--tw-bg-opacity));
+}
+
+.bg-custom-secondaryBackground {
+  --tw-bg-opacity: 1;
+  background-color: rgb(132 115 73 / var(--tw-bg-opacity));
+}
+
+.bg-custom-text {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 209 158 / var(--tw-bg-opacity));
+}
+
+.bg-\[url\(\'\.\.\/\.\.\/public\/img\/background\.jpg\'\)\] {
+  background-image: url('../../public/img/background.jpg');
 }
 
 .fill-custom-background {
-  fill: #D9D9D9;
+  fill: #3E576E;
+}
+
+.fill-custom-text {
+  fill: #E2D19E;
 }
 
 .px-7 {
@@ -802,9 +916,9 @@ video {
   padding-right: 1.75rem;
 }
 
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .pt-4 {
@@ -836,7 +950,12 @@ video {
 
 .text-custom-text {
   --tw-text-opacity: 1;
-  color: rgb(40 90 235 / var(--tw-text-opacity));
+  color: rgb(226 209 158 / var(--tw-text-opacity));
+}
+
+.text-custom-background {
+  --tw-text-opacity: 1;
+  color: rgb(62 87 110 / var(--tw-text-opacity));
 }
 
 .transition-all {
@@ -854,16 +973,6 @@ video {
 }
 
 @media (min-width: 640px) {
-  .sm\:px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .sm\:py-6 {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-
   .sm\:pt-6 {
     padding-top: 1.5rem;
   }
@@ -885,11 +994,6 @@ video {
     padding-right: 2.5rem;
   }
 
-  .md\:py-8 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
   .md\:pt-8 {
     padding-top: 2rem;
   }
@@ -901,6 +1005,11 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
   .lg\:pt-12 {
     padding-top: 3rem;
   }
