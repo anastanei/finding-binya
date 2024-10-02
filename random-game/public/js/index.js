@@ -7,7 +7,6 @@ class minesweeper {
     this.rows = rows;
     this.length = this.cols * this.rows;
     this.mineAmount = Math.floor(this.length / 7);
-    console.log(this.mineAmount);
     this.isStarted = false;
     this.container = document.querySelector(containerSelector);
     this.container.style.setProperty(
@@ -28,38 +27,66 @@ class minesweeper {
       if (cell) {
         const [node, x, y] = cell;
         if (!this.isStarted) {
-          this.isStarted = true;
-          const adjacents = this.getAdjacents(x, y);
-          this.setEmptyStartingCells([[x, y], ...adjacents]);
-          const minePositions = this.getMinePositions(
-            this.mineAmount,
-            this.array,
-            [[x, y], ...adjacents]
-          );
-          minePositions.forEach(([x, y]) => {
-            this.matrix[y][x] = "!!";
-            const adjacents = this.getAdjacents(x, y);
-            adjacents.forEach(([x, y]) => {
-              console.log("adj", x, y);
-              if (this.matrix[y][x] !== "!!") {
-                this.matrix[y][x] += 1;
-              }
-            });
-          });
-          this.updateField();
-          console.log(this.matrix);
+          this.handleFirstMove(x, y);
+        }
+
+        //openCell()
+        if (this.matrix[y][x] === 0) {
+          this.openAdjacentWhileEmpty(x, y);
         }
         node.disabled = true;
+        //
       }
     });
   }
 
-  updateField() {
+  openAdjacentWhileEmpty(x, y) {
+    const adjacents = this.getAdjacents(x, y);
+    adjacents.forEach(([x, y]) => {
+      const matrixItem = this.matrix[y][x];
+      if (matrixItem === 0) {
+        const node = this.getCellFromPosition(x, y);
+        if (node.disabled === false) {
+          node.disabled = true;
+          this.openAdjacentWhileEmpty(x, y);
+        }
+      }
+      if (matrixItem !== "!!") {
+        this.getCellFromPosition(x, y).disabled = true;
+      }
+    });
+  }
+
+  handleFirstMove(x, y) {
+    this.isStarted = true;
+    const adjacents = this.getAdjacents(x, y);
+    this.setEmptyStartingCells([[x, y], ...adjacents]);
+    const minePositions = this.getMinePositions(this.mineAmount, this.array, [
+      [x, y],
+      ...adjacents,
+    ]);
+    minePositions.forEach(([x, y]) => this.setMatrixValues(x, y));
+    this.setCellValues();
+  }
+
+  setMatrixValues(x, y) {
+    this.matrix[y][x] = "!!";
+    const adjacents = this.getAdjacents(x, y);
+    adjacents.forEach(([x, y]) => {
+      if (this.matrix[y][x] !== "!!") {
+        this.matrix[y][x] += 1;
+      }
+    });
+  }
+
+  getCellFromPosition(x, y) {
+    return this.container.querySelector(`[data-xpos="${x}"][data-ypos="${y}"]`);
+  }
+
+  setCellValues() {
     this.matrix.forEach((row, y) => {
       row.forEach((value, x) => {
-        const cell = this.container.querySelector(
-          `[data-xpos="${x}"][data-ypos="${y}"]`
-        );
+        const cell = this.getCellFromPosition(x, y);
         if (cell) {
           cell.textContent = value;
         }
@@ -92,7 +119,6 @@ class minesweeper {
         }
       }
     }
-    console.log("positions", flatPositions, positions);
     return positions;
   }
 
@@ -147,4 +173,4 @@ class minesweeper {
   }
 }
 
-new minesweeper(7, 10, "[data-container]");
+new minesweeper(15, 7, "[data-container]");
