@@ -19,31 +19,28 @@
 <script type="module" src="./public/js/index.js"></script>
 
 <body class="text-xs leading-none font-georgia sm:text-lg lg:text-base 2xl:text-xl text-custom-text">
+
   <div class="relative flex flex-col justify-between min-h-screen">
     <!--bg-center bg-[url('../../public/img/background.jpg')] -->
-    <div class="absolute inset-0 grid grid-rows-[10fr_1rem_1fr]">
-      <div class="relative backround-sky text-custom-text grow overflow-x-hidden bg-custom-text flex items-end">
-        <ul class="houses relative flex h-1/2">
-          <li class="house ">
-          </li>
-          <li class="house ">
-          </li>
-          <li class="house ">
-          </li>
-          <li class="house ">
-          </li>
-          <li class="house ">
-          </li>
-        </ul>
+
+    <main class="relative py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 grow items-center justify-center flex ">
+      <div class="absolute inset-0 h-full">
+        <div class="relative backround-sky text-custom-text overflow-x-hidden bg-custom-text flex items-end h-full">
+          <ul class="houses relative flex h-1/2">
+            <li class="house ">
+            </li>
+            <li class="house ">
+            </li>
+            <li class="house ">
+            </li>
+            <li class="house ">
+            </li>
+            <li class="house ">
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="bg-custom-accent">
-      </div>
-      <div class="bg-custom-secondaryBackground paving flex justify-center items-center">
-        <img class="h-1/2" src="./public/img/cat.webp" alt="cat">
-      </div>
-    </div>
-    <main class="relative z-10 py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 grow items-center justify-center flex ">
-      <div class="container container-custom  w-auto overflow-x-auto">
+      <div class="relative  z-10 container container-custom  w-auto overflow-x-auto">
         <!-- <h1 class="mb-6 text-xl select-none sm:text-2xl 2xl:text-4xl">Save the Cat</h1> -->
         <ul
           class="container text-xs inline-grid gap-1 bg-opacity-50 justify-center p-3 bg-custom-text w-auto align-center "
@@ -51,8 +48,22 @@
         </ul>
       </div>
     </main>
-    <footer class="relative z-10 py-2 text-sm  lg:py-8 md:text-base xl:text-xl">
-      <div class="container container-custom  flex flex-row items-end justify-center gap-5 ">
+    <footer class="relative py-4 text-sm  lg:py-8 md:text-base xl:text-xl">
+      <div class="absolute inset-0 grid grid-rows-[1rem_1fr]">
+        <div class="bg-custom-accent">
+        </div>
+        <div class="bg-custom-secondaryBackground paving flex justify-center items-center">
+        </div>
+      </div>
+      <div class="container container-custom  relative z-10 flex flex-row items-end justify-center gap-5 ">
+        <!-- <video class="w-52 block" height="252" width="320" autoplay loop muted>
+          <source src="./public/video/cat_hides.mp4" type="video/mp4">
+        </video> -->
+
+        <img class="w-60 block" src="./public/img/cat.webp" alt="cat" width="667" height="374">
+      </div>
+      <div class="container relative z-10 container-custom  flex flex-row items-end justify-center gap-5 ">
+
         <a class="w-7 h-7 custom-hover extend-click" href="https://rs.school/courses/javascript-preschool-ru"
           target="_blank">
           <svg class=" footer-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64">
@@ -72,6 +83,7 @@
           </svg>
         </a>
         <span class="select-none">2024</span>
+
         <a class="w-7 h-7 custom-hover extend-click" href="https://github.com/anastanei" target="_blank">
           <svg class="w-full h-full footer-svg" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24">
