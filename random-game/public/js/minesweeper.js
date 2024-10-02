@@ -11,7 +11,7 @@ export class Minesweeper {
     this.container = document.querySelector(containerSelector);
     this.container.style.setProperty(
       "grid-template-columns",
-      `repeat(${this.cols}, minmax(0, 1fr))`
+      `repeat(${this.cols}, minmax(1.5rem, 1fr))`
     );
 
     this.init();
