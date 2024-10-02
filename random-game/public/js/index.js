@@ -19,7 +19,7 @@ class minesweeper {
   }
 
   init() {
-    this.array = Array(this.length).fill("?");
+    this.array = Array(this.length).fill(0);
     this.matrix = this.getMatrix(this.array, this.cols);
     this.createEmptyField(this.matrix);
 
@@ -31,26 +31,42 @@ class minesweeper {
           this.isStarted = true;
           const adjacents = this.getAdjacents(x, y);
           this.setEmptyStartingCells([[x, y], ...adjacents]);
-          // console.log("adj", [[x, y], ...adjacents]);
           const minePositions = this.getMinePositions(
             this.mineAmount,
             this.array,
             [[x, y], ...adjacents]
           );
-          // console.log("mine", minePositions);
           minePositions.forEach(([x, y]) => {
             this.matrix[y][x] = "!!";
+            const adjacents = this.getAdjacents(x, y);
+            adjacents.forEach(([x, y]) => {
+              console.log("adj", x, y);
+              if (this.matrix[y][x] !== "!!") {
+                this.matrix[y][x] += 1;
+              }
+            });
           });
+          this.updateField();
           console.log(this.matrix);
-          // adjacents.forEach((position) => emptyPositions.push(position));
-          // console.log("empty", emptyPositions, adjacents);
-          // const minePositions = this.getMinePositions(this.mineAmount, this.array, x, y);
         }
         node.disabled = true;
-        // console.log("position", x, y);
       }
     });
   }
+
+  updateField() {
+    this.matrix.forEach((row, y) => {
+      row.forEach((value, x) => {
+        const cell = this.container.querySelector(
+          `[data-xpos="${x}"][data-ypos="${y}"]`
+        );
+        if (cell) {
+          cell.textContent = value;
+        }
+      });
+    });
+  }
+
   setEmptyStartingCells(array) {
     array.forEach(([x, y]) => {
       this.matrix[y][x] = 0;
@@ -67,7 +83,7 @@ class minesweeper {
 
       const isEmpty = emptyPositions.some(
         ([emptyX, emptyY]) => emptyX === x && emptyY === y
-      ); ///
+      );
       if (!isEmpty) {
         const posKey = `${x},${y}`;
         if (!flatPositions.has(posKey)) {
