@@ -30,13 +30,30 @@ export class Minesweeper {
           this.handleFirstMove(x, y);
         }
 
-        //openCell()
         if (this.matrix[y][x] === 0) {
           this.openAdjacentWhileEmpty(x, y);
         }
-        node.disabled = true;
-        //
+
+        if (this.matrix[y][x] === "!") {
+          this.openMines();
+        } else {
+          this.openCell(node, this.matrix[y][x]);
+        }
       }
+    });
+  }
+
+  openMines() {
+    this.minePositions.forEach(([x, y]) => {
+      const node = this.getCellFromPosition(x, y);
+      node.insertAdjacentHTML(
+        "afterbegin",
+        `<svg class="w-3 h-3" fill="currentColor">
+               <use xlink:href="#icon-home"></use>
+               </svg>`
+      );
+      node.disabled = true;
+      this.container.classList.add("pointer-events-none");
     });
   }
 
@@ -44,29 +61,34 @@ export class Minesweeper {
     const adjacents = this.getAdjacents(x, y);
     adjacents.forEach(([x, y]) => {
       const matrixItem = this.matrix[y][x];
+      const node = this.getCellFromPosition(x, y);
       if (matrixItem === 0) {
-        const node = this.getCellFromPosition(x, y);
         if (node.disabled === false) {
-          node.disabled = true;
+          this.openCell(node, matrixItem);
           this.openAdjacentWhileEmpty(x, y);
         }
       }
       if (matrixItem !== "!") {
-        this.getCellFromPosition(x, y).disabled = true;
+        this.openCell(node, matrixItem);
       }
     });
+  }
+
+  openCell(node, matrixItem) {
+    matrixItem;
+    node.textContent = matrixItem === 0 ? "" : matrixItem;
+    node.disabled = true;
   }
 
   handleFirstMove(x, y) {
     this.isStarted = true;
     const adjacents = this.getAdjacents(x, y);
     this.setEmptyStartingCells([[x, y], ...adjacents]);
-    const minePositions = this.getMinePositions(this.mineAmount, this.array, [
+    this.minePositions = this.getMinePositions(this.mineAmount, this.array, [
       [x, y],
       ...adjacents,
     ]);
-    minePositions.forEach(([x, y]) => this.setMatrixValues(x, y));
-    this.setCellValues();
+    this.minePositions.forEach(([x, y]) => this.setMatrixValues(x, y));
   }
 
   setMatrixValues(x, y) {
@@ -81,17 +103,6 @@ export class Minesweeper {
 
   getCellFromPosition(x, y) {
     return this.container.querySelector(`[data-xpos="${x}"][data-ypos="${y}"]`);
-  }
-
-  setCellValues() {
-    this.matrix.forEach((row, y) => {
-      row.forEach((value, x) => {
-        const cell = this.getCellFromPosition(x, y);
-        if (cell) {
-          cell.textContent = value;
-        }
-      });
-    });
   }
 
   setEmptyStartingCells(array) {
