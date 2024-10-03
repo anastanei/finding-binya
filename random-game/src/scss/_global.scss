@@ -13,10 +13,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $custom-text;
+  background: $custom-accent;
 
   &:hover {
-    background: $custom-secondaryText;
+    background: $custom-text;
   }
 }
 

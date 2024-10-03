@@ -10,11 +10,11 @@ module.exports = {
     extend: {
       colors: {
         custom: {
-          background: "#3E576E", // paynes-gray
-          text: "#E2D19E", // vanilla
-          accent: "#C6AD6B", // citron
-          secondaryText: "#7A674F", // coyote
-          secondaryBackground: "#847349", // indigo-dye
+          background: "#624E88", // purple
+          text: "#E6D9A2", // vanilla
+          accent: "#FABC3F", // pink - #CB80AB"  #FABC3 -yellow warm
+          secondaryBackground: "#8967B3", // light-purple
+          secondaryAccent: "#CB80AB",
         },
       },
       backgroundImage: {
@@ -25,7 +25,12 @@ module.exports = {
         georgia: ["Georgia", "sans-serif"],
       },
       boxShadow: {
-        "custom-inset": "inset 3px 3px 5px #FFF, inset -3px -3px 5px #C6AD6B",
+        // "custom-inset": "inset 3px 3px 5px #FFF, inset -3px -3px 5px #C6AD6B",
+        "custom-inset":
+          "inset 3px 3px 5px #FFEECC, inset -3px -3px 5px #BBBB88",
+
+        "custom-inset-hover":
+          "inset 3px 3px 5px #FFCD5F, inset -3px -3px 5px #CCAA24",
       },
       maxWidth: {
         custom: "120rem",

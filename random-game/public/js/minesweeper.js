@@ -23,6 +23,7 @@ export class Minesweeper {
     this.createEmptyField(this.matrix);
 
     this.container.addEventListener("click", (event) => {
+      console.log(event.type);
       const cell = this.getCell(event);
       if (cell) {
         const [node, x, y] = cell;
@@ -30,14 +31,34 @@ export class Minesweeper {
           this.handleFirstMove(x, y);
         }
 
-        if (this.matrix[y][x] === 0) {
+        const matrixItem = this.matrix[y][x];
+        if (matrixItem === 0) {
+          this.openCell(node, this.matrix[y][x]);
           this.openAdjacentWhileEmpty(x, y);
-        }
-
-        if (this.matrix[y][x] === "!") {
+        } else if (matrixItem === "mine") {
           this.openMines();
         } else {
           this.openCell(node, this.matrix[y][x]);
+        }
+      }
+    });
+    this.container.addEventListener("contextmenu", (event) => {
+      console.log(event.type);
+      event.preventDefault();
+      if (this.isStarted) {
+        const [cell] = this.getCell(event);
+        if (cell) {
+          const svg = cell.querySelector("[data-cell-svg]");
+          if (svg) {
+            svg.remove();
+          } else {
+            cell.insertAdjacentHTML(
+              "afterbegin",
+              `<svg class="cell-svg text-custom-background" fill="currentColor" data-cell-svg>
+               <use xlink:href="#icon-danger"></use>
+               </svg>`
+            );
+          }
         }
       }
     });
@@ -46,13 +67,14 @@ export class Minesweeper {
   openMines() {
     this.minePositions.forEach(([x, y]) => {
       const node = this.getCellFromPosition(x, y);
+      this.openCell(node, this.matrix[y][x]);
       node.insertAdjacentHTML(
         "afterbegin",
-        `<svg class="w-3 h-3" fill="currentColor">
-               <use xlink:href="#icon-home"></use>
+        `<svg class="cell-svg text-custom-secondaryAccent" fill="currentColor">
+               <use xlink:href="#icon-ghost"></use>
                </svg>`
       );
-      node.disabled = true;
+      // node.classList.add("text-custom-accent");
       this.container.classList.add("pointer-events-none");
     });
   }
@@ -68,7 +90,7 @@ export class Minesweeper {
           this.openAdjacentWhileEmpty(x, y);
         }
       }
-      if (matrixItem !== "!") {
+      if (matrixItem !== "mine") {
         this.openCell(node, matrixItem);
       }
     });
@@ -76,7 +98,10 @@ export class Minesweeper {
 
   openCell(node, matrixItem) {
     matrixItem;
-    node.textContent = matrixItem === 0 ? "" : matrixItem;
+    node.textContent = "";
+    if (matrixItem !== 0 && matrixItem !== "mine") {
+      node.textContent = matrixItem;
+    }
     node.disabled = true;
   }
 
@@ -92,10 +117,10 @@ export class Minesweeper {
   }
 
   setMatrixValues(x, y) {
-    this.matrix[y][x] = "!";
+    this.matrix[y][x] = "mine";
     const adjacents = this.getAdjacents(x, y);
     adjacents.forEach(([x, y]) => {
-      if (this.matrix[y][x] !== "!") {
+      if (this.matrix[y][x] !== "mine") {
         this.matrix[y][x] += 1;
       }
     });
@@ -173,11 +198,19 @@ export class Minesweeper {
   }
 
   getCell(event) {
-    if (event.target && event.target.matches('[data-cell="true"]')) {
-      const cell = event.target;
+    const selector = '[data-cell="true"]';
+    let targetElement = event.target;
+
+    console.log("event.target", targetElement);
+    if (targetElement.tagName === "use") {
+      targetElement = targetElement.closest("svg");
+    }
+    const cell = targetElement.closest(selector);
+
+    if (cell) {
       const x = cell.getAttribute("data-xpos");
       const y = cell.getAttribute("data-ypos");
-      return [event.target, parseInt(x), parseInt(y)];
+      return [cell, parseInt(x), parseInt(y)];
     } else {
       return null;
     }
