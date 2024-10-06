@@ -34,17 +34,18 @@ export class Minesweeper {
           this.handleFirstMove(x, y);
         }
 
-        const matrixItem = this.matrix[y][x];
+        const matrixItem = this.getMatrixValue(x, y);
         if (matrixItem === 0) {
-          this.openCell(node, this.matrix[y][x]);
+          this.openCell(node, matrixItem);
           this.openAdjacentWhileEmpty(x, y);
         } else if (matrixItem === "mine") {
           this.openMines();
         } else {
-          this.openCell(node, this.matrix[y][x]);
+          this.openCell(node, matrixItem);
         }
       }
     });
+
     this.container.addEventListener("contextmenu", (event) => {
       console.log(event.type);
       event.preventDefault();
@@ -78,7 +79,7 @@ export class Minesweeper {
   openMines() {
     this.minePositions.forEach(([x, y]) => {
       const node = this.getCellFromPosition(x, y);
-      this.openCell(node, this.matrix[y][x]);
+      this.openCell(node, this.getMatrixValue(x, y));
       node.insertAdjacentHTML(
         "afterbegin",
         `<svg class="cell-svg text-custom-secondaryAccent" fill="currentColor">
@@ -142,7 +143,6 @@ export class Minesweeper {
   setMatrixValues(x, y) {
     this.setMatrixValue(x, y, "mine");
     const adjacents = this.getAdjacents(x, y);
-
     adjacents.forEach(([adjX, adjY]) => {
       if (this.getMatrixValue(adjX, adjY) !== "mine") {
         this.setMatrixValue(adjX, adjY, this.getMatrixValue(adjX, adjY) + 1);
@@ -156,7 +156,7 @@ export class Minesweeper {
 
   setEmptyStartingCells(array) {
     array.forEach(([x, y]) => {
-      this.matrix[y][x] = 0;
+      this.setMatrixValue(x, y, 0);
     });
   }
 
