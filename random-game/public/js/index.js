@@ -1,3 +1,3 @@
 import { Minesweeper } from "./minesweeper.js";
 
-new Minesweeper(20, 10, "[data-container]");
+new Minesweeper(5, 5, "[data-container]");

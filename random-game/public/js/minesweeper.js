@@ -8,6 +8,8 @@ export class Minesweeper {
     this.length = this.cols * this.rows;
     this.mineAmount = Math.floor(this.length / 7);
     this.isStarted = false;
+    this.disabledCount = 0;
+    this.maxDisabledCount = this.length - this.mineAmount;
     this.container = document.querySelector(containerSelector);
     this.container.style.setProperty(
       "grid-template-columns",
@@ -20,6 +22,7 @@ export class Minesweeper {
   init() {
     this.array = Array(this.length).fill(0);
     this.matrix = this.getMatrix(this.array, this.cols);
+    this.cellNodes = {};
     this.createEmptyField(this.matrix);
 
     this.container.addEventListener("click", (event) => {
@@ -54,7 +57,7 @@ export class Minesweeper {
           } else {
             cell.insertAdjacentHTML(
               "afterbegin",
-              `<svg class="cell-svg text-custom-background" fill="currentColor" data-cell-svg>
+              `<svg class="cell-svg cursor-pointer text-custom-background" fill="currentColor" data-cell-svg>
                <use xlink:href="#icon-danger"></use>
                </svg>`
             );
@@ -62,6 +65,14 @@ export class Minesweeper {
         }
       }
     });
+  }
+
+  getMatrixValue(x, y) {
+    return this.matrix[y][x];
+  }
+
+  setMatrixValue(x, y, value) {
+    this.matrix[y][x] = value;
   }
 
   openMines() {
@@ -74,35 +85,47 @@ export class Minesweeper {
                <use xlink:href="#icon-ghost"></use>
                </svg>`
       );
-      // node.classList.add("text-custom-accent");
       this.container.classList.add("pointer-events-none");
     });
   }
 
   openAdjacentWhileEmpty(x, y) {
-    const adjacents = this.getAdjacents(x, y);
-    adjacents.forEach(([x, y]) => {
-      const matrixItem = this.matrix[y][x];
-      const node = this.getCellFromPosition(x, y);
-      if (matrixItem === 0) {
-        if (node.disabled === false) {
+    const stack = [[x, y]];
+    while (stack.length) {
+      const [tempX, tempY] = stack.pop();
+      const adjacents = this.getAdjacents(tempX, tempY);
+
+      adjacents.forEach(([adjX, adjY]) => {
+        const matrixItem = this.getMatrixValue(adjX, adjY);
+        const node = this.getCellFromPosition(adjX, adjY);
+
+        if (!node.disabled) {
           this.openCell(node, matrixItem);
-          this.openAdjacentWhileEmpty(x, y);
+          if (matrixItem === 0) {
+            stack.push([adjX, adjY]);
+          }
         }
-      }
-      if (matrixItem !== "mine") {
-        this.openCell(node, matrixItem);
-      }
-    });
+      });
+    }
   }
 
   openCell(node, matrixItem) {
-    matrixItem;
+    if (node.disabled) return;
+    node.disabled = true;
+    this.disabledCount += 1;
+
+    if (this.disabledCount === this.maxDisabledCount) {
+      this.handleWin();
+    }
     node.textContent = "";
     if (matrixItem !== 0 && matrixItem !== "mine") {
       node.textContent = matrixItem;
     }
-    node.disabled = true;
+  }
+
+  handleWin() {
+    console.log("win!");
+    this.container.classList.add("pointer-events-none");
   }
 
   handleFirstMove(x, y) {
@@ -117,17 +140,18 @@ export class Minesweeper {
   }
 
   setMatrixValues(x, y) {
-    this.matrix[y][x] = "mine";
+    this.setMatrixValue(x, y, "mine");
     const adjacents = this.getAdjacents(x, y);
-    adjacents.forEach(([x, y]) => {
-      if (this.matrix[y][x] !== "mine") {
-        this.matrix[y][x] += 1;
+
+    adjacents.forEach(([adjX, adjY]) => {
+      if (this.getMatrixValue(adjX, adjY) !== "mine") {
+        this.setMatrixValue(adjX, adjY, this.getMatrixValue(adjX, adjY) + 1);
       }
     });
   }
 
   getCellFromPosition(x, y) {
-    return this.container.querySelector(`[data-xpos="${x}"][data-ypos="${y}"]`);
+    return this.cellNodes[`${x},${y}`];
   }
 
   setEmptyStartingCells(array) {
@@ -137,22 +161,19 @@ export class Minesweeper {
   }
 
   getMinePositions(mineAmount, array, emptyPositions) {
-    const flatPositions = new Set();
+    const emptySet = new Set(emptyPositions.map(([x, y]) => `${x},${y}`));
+    const mineSet = new Set();
     const positions = [];
-    while (flatPositions.size < mineAmount) {
+
+    while (mineSet.size < mineAmount) {
       const flatPosition = getRandomNumber(array.length - 1);
       const x = flatPosition % this.cols;
       const y = Math.floor(flatPosition / this.cols);
 
-      const isEmpty = emptyPositions.some(
-        ([emptyX, emptyY]) => emptyX === x && emptyY === y
-      );
-      if (!isEmpty) {
-        const posKey = `${x},${y}`;
-        if (!flatPositions.has(posKey)) {
-          flatPositions.add(posKey);
-          positions.push([x, y]);
-        }
+      const posKey = `${x},${y}`;
+      if (!emptySet.has(posKey) && !mineSet.has(posKey)) {
+        mineSet.add(posKey);
+        positions.push([x, y]);
       }
     }
     return positions;
@@ -169,8 +190,10 @@ export class Minesweeper {
 
   createEmptyField(matrix) {
     matrix.forEach((row, y) => {
-      row.forEach((cell, x) => {
-        this.container.appendChild(new Cell(x, y).getNode());
+      row.forEach((_, x) => {
+        const cell = new Cell(x, y).getNode();
+        this.container.appendChild(cell);
+        this.cellNodes[`${x},${y}`] = cell;
       });
     });
   }
