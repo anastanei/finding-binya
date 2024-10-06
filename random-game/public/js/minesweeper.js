@@ -40,6 +40,7 @@ export class Minesweeper {
           this.openAdjacentWhileEmpty(x, y);
         } else if (matrixItem === "mine") {
           this.openMines();
+          console.log("losing");
         } else {
           this.openCell(node, matrixItem);
         }
@@ -68,18 +69,21 @@ export class Minesweeper {
     });
   }
 
-  getMatrixValue(x, y) {
-    return this.matrix[y][x];
-  }
-
-  setMatrixValue(x, y, value) {
-    this.matrix[y][x] = value;
+  handleFirstMove(x, y) {
+    this.isStarted = true;
+    const adjacents = this.getAdjacents(x, y);
+    this.setEmptyStartingCells([[x, y], ...adjacents]);
+    this.minePositions = this.getMinePositions(this.mineAmount, this.array, [
+      [x, y],
+      ...adjacents,
+    ]);
+    this.minePositions.forEach(([x, y]) => this.setMatrixValues(x, y));
   }
 
   openMines() {
     this.minePositions.forEach(([x, y]) => {
       const node = this.getCellFromPosition(x, y);
-      this.openCell(node, this.getMatrixValue(x, y));
+      this.openCell(node, this.getMatrixValue(x, y), true);
       node.insertAdjacentHTML(
         "afterbegin",
         `<svg class="cell-svg text-custom-secondaryAccent" fill="currentColor">
@@ -88,6 +92,37 @@ export class Minesweeper {
       );
       this.container.classList.add("pointer-events-none");
     });
+  }
+
+  openCell(node, matrixItem, isMine = false) {
+    if (node.disabled) return;
+    node.disabled = true;
+    if (!isMine) {
+      this.disabledCount += 1;
+    }
+
+    node.textContent = "";
+    if (this.disabledCount === this.maxDisabledCount) {
+      node.classList.remove("disabled:bg-custom-background");
+      node.classList.add("disabled:bg-custom-accent");
+      node.insertAdjacentHTML(
+        "afterbegin",
+        `<svg class="cell-svg cursor-pointer text-black" version="1.0" xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512" fill="currentColor">
+        <path   d="M481.875,299.344L512,292.219l-4.656-19.641l-24.25,5.734c0-0.328,0.016-0.641,0.016-0.969   c0-38.078-10.531-72.781-28.969-102.359c15.438-53.938-13.438-124.547-13.438-124.547S387.813,73,357.719,100.297   C327.109,91.063,292.578,88.094,256,88.094c-36.766,0-71.484,2.563-102.203,11.781c-30.156-27.109-82.5-49.438-82.5-49.438   S42.406,121.063,57.859,175c-18.422,29.578-28.984,64.281-28.984,102.344c0,0.328,0.031,0.641,0.031,0.969l-24.25-5.734L0,292.219   l30.109,7.125c2.672,23.578,9.672,44.75,20.234,63.422L12.875,377.75l7.484,18.75l41.203-16.484   c39.797,53.141,111.969,81.547,194.438,81.547c82.453,0,154.641-28.406,194.438-81.547l41.203,16.484l7.484-18.75l-37.469-14.984   C472.219,344.094,479.219,322.922,481.875,299.344z"/>
+        </svg>`
+      );
+      this.disabledCount = 0;
+      this.handleWin();
+    } else if (matrixItem !== 0 && matrixItem !== "mine") {
+      node.textContent = matrixItem;
+    }
+  }
+
+  handleWin() {
+    this.openMines();
+    console.log("win!");
+    this.container.classList.add("pointer-events-none");
   }
 
   openAdjacentWhileEmpty(x, y) {
@@ -110,36 +145,6 @@ export class Minesweeper {
     }
   }
 
-  openCell(node, matrixItem) {
-    if (node.disabled) return;
-    node.disabled = true;
-    this.disabledCount += 1;
-
-    if (this.disabledCount === this.maxDisabledCount) {
-      this.handleWin();
-    }
-    node.textContent = "";
-    if (matrixItem !== 0 && matrixItem !== "mine") {
-      node.textContent = matrixItem;
-    }
-  }
-
-  handleWin() {
-    console.log("win!");
-    this.container.classList.add("pointer-events-none");
-  }
-
-  handleFirstMove(x, y) {
-    this.isStarted = true;
-    const adjacents = this.getAdjacents(x, y);
-    this.setEmptyStartingCells([[x, y], ...adjacents]);
-    this.minePositions = this.getMinePositions(this.mineAmount, this.array, [
-      [x, y],
-      ...adjacents,
-    ]);
-    this.minePositions.forEach(([x, y]) => this.setMatrixValues(x, y));
-  }
-
   setMatrixValues(x, y) {
     this.setMatrixValue(x, y, "mine");
     const adjacents = this.getAdjacents(x, y);
@@ -148,6 +153,14 @@ export class Minesweeper {
         this.setMatrixValue(adjX, adjY, this.getMatrixValue(adjX, adjY) + 1);
       }
     });
+  }
+
+  getMatrixValue(x, y) {
+    return this.matrix[y][x];
+  }
+
+  setMatrixValue(x, y, value) {
+    this.matrix[y][x] = value;
   }
 
   getCellFromPosition(x, y) {
