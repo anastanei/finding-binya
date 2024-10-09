@@ -1,0 +1,10 @@
+// .custom-range-wrapper {
+//   @apply ;
+// }
+.custom-range-input {
+  @apply h-2 bg-gray-800 rounded-md appearance-none cursor-pointer extend-click hover:bg-black accent-custom-accent transition-colors duration-300 ease-out;
+}
+
+.custom-range-label {
+  @apply text-lg;
+}

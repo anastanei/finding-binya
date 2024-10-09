@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Save the Cat">
+  <meta name="description" content="Find the Cat">
   <link rel="stylesheet" href="./public/css/normalize.css">
   <link rel="stylesheet" href="./public/css/tailwind.css">
 
@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="./public/favicon/apple-touch-icon-180x180.png">
   <link rel="manifest" href="./manifest.webmanifest">
 
-  <title>Save the Cat</title>
+  <title>Find the Cat</title>
 </head>
 
 <script type="module" src="./public/js/index.js"></script>
@@ -26,6 +26,7 @@
     <path xmlns="http://www.w3.org/2000/svg"
       d="M507.494,426.066L282.864,53.537c-5.677-9.415-15.87-15.172-26.865-15.172c-10.995,0-21.188,5.756-26.865,15.172    L4.506,426.066c-5.842,9.689-6.015,21.774-0.451,31.625c5.564,9.852,16.001,15.944,27.315,15.944h449.259    c11.314,0,21.751-6.093,27.315-15.944C513.508,447.839,513.336,435.755,507.494,426.066z M256.167,167.227    c12.901,0,23.817,7.278,23.817,20.178c0,39.363-4.631,95.929-4.631,135.292c0,10.255-11.247,14.554-19.186,14.554    c-10.584,0-19.516-4.3-19.516-14.554c0-39.363-4.63-95.929-4.63-135.292C232.021,174.505,242.605,167.227,256.167,167.227z     M256.498,411.018c-14.554,0-25.471-11.908-25.471-25.47c0-13.893,10.916-25.47,25.471-25.47c13.562,0,25.14,11.577,25.14,25.47    C281.638,399.11,270.06,411.018,256.498,411.018z" />
   </symbol>
+
 </svg>
 
 <body class="text-xs leading-none font-georgia sm:text-lg lg:text-base 2xl:text-xl text-custom-text">
@@ -49,7 +50,7 @@
         </div>
       </div>
       <div class="relative  z-10 container container-custom  w-auto overflow-x-auto">
-        <!-- <h1 class="mb-6 text-xl select-none sm:text-2xl 2xl:text-4xl">Save the Cat</h1> -->
+        <!-- <h1 class="mb-6 text-xl select-none sm:text-2xl 2xl:text-4xl">Find the Cat</h1> -->
         <ul
           class="container text-xs inline-grid gap-1 bg-opacity-50 justify-center p-3 bg-custom-text w-auto align-center "
           data-container>
@@ -96,6 +97,47 @@
         </a>
       </div>
     </footer>
+  </div>
+  <div id="modal"
+    class="select-none fixed top-0 left-0 right-0 min-h-screen h-auto flex items-center justify-center bg-custom-background  text-custom-text z-50">
+    <div class="p-8 w-full leading-normal max-w-md flex flex-col items-center gap-6">
+      <div class="">
+        <h2 class="text-xl font-semibold text-center">You've lost your cat&nbsp;:( </h2>
+        <p class="text-center">You need to find her, but the city is full of danger.</p>
+      </div>
+      <ul class="list-disc list-outside pl-2  ">
+        <li><strong class="text-custom-accent">Click or tap</strong> on a
+          safe cell to reveal a number. The number shows how many traps are next to it: <span class=" "
+            data-guide-number-cell></span></li>
+        <li><strong class="text-custom-accent">Right-click or long
+            press</strong> to mark cells you
+          think have traps: <span data-guide-flagged-cell></span></li>
+        <li>If you click on a trap, you lose the game and won't find your cat! </li>
+        <li>Find your cat by revealing all the safe cells!</li>
+      </ul>
+      <h2 class=" text-xl ">Set up the field:</h2>
+      <div class="grid grid-cols-[auto,_1fr,2rem] w-10/12 items-center gap-3">
+        <p>Columns</p>
+        <input id="rangeInput-0" type="range" min="5" max="100" value="5" class="custom-range-input" data-range-cols>
+        <label for="rangeInput-0" class="custom-range-label">1</label>
+        <p>Rows</p>
+        <input id="rangeInput-1" type="range" min="5" max="100" value="5" class="custom-range-input" data-range-rows>
+        <label for="rangeInput-1" class="custom-range-label">1</label>
+        <p>Mines</p>
+        <input id="rangeInput-1" type="range" min="5" max="100" value="5" class="custom-range-input" data-range-mines>
+        <label for="rangeInput-1" class="custom-range-label">1</label>
+      </div>
+      <button
+        class="bg-custom-accent text-custom-background text-lg py-2 px-6 mx-auto  flex items-center justify-center space-x-2 hover:bg-custom-text hover:shadow-xl active:translate-y-1 transition-all duration-300 ease-out extend-click">
+        <svg class="w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="none">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        <span class="text-custom-background">start</span>
+      </button>
+      <video class="w-52 block" height="252" width="320" autoplay loop muted>
+        <source src="./public/video/cat_hides.webm" type="video/mp4">
+      </video>
+    </div>
   </div>
 </body>
 
