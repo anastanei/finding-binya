@@ -42,3 +42,7 @@
   visibility: hidden;
   opacity: 0;
 }
+
+.bigger-text {
+  @apply text-xl sm:text-2xl lg:text-3xl 2xl:text-4xl;
+}

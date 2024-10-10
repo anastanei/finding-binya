@@ -77,6 +77,10 @@ html {
   opacity: 0;
 }
 
+.bigger-text {
+  @apply text-xl sm:text-2xl lg:text-3xl 2xl:text-4xl;
+}
+
 .backround-sky {
   background: linear-gradient(15deg, #FABC3F 0%, #8967B3 60%, #624E88 100%);
 }
