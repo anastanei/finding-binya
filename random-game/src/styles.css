@@ -72,6 +72,11 @@ html {
   opacity: 1;
 }
 
+.custom-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
 .backround-sky {
   background: linear-gradient(15deg, #FABC3F 0%, #8967B3 60%, #624E88 100%);
 }

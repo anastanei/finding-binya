@@ -2,11 +2,12 @@ import { getRandomNumber } from "./getRandomNumber.js";
 import { Cell } from "./cell.js";
 
 export class Minesweeper {
-  constructor(cols, rows, containerSelector) {
+  constructor(cols, rows, mines, containerSelector) {
     this.cols = cols;
     this.rows = rows;
     this.length = this.cols * this.rows;
-    this.mineAmount = Math.floor(this.length / 7);
+    this.mineAmount = Math.floor((this.length * mines) / 100);
+    console.log(cols, rows, cols * rows, this.mineAmount);
     this.isStarted = false;
     this.disabledCount = 0;
     this.maxDisabledCount = this.length - this.mineAmount;

@@ -99,8 +99,16 @@
     </footer>
   </div>
   <div id="modal"
-    class="select-none fixed top-0 left-0 right-0 min-h-screen h-auto flex items-center justify-center bg-custom-background  text-custom-text z-50">
-    <div class="p-8 w-full leading-normal max-w-md flex flex-col items-center gap-6">
+    class="select-none fixed top-0 left-0 right-0 min-h-screen h-auto flex items-center justify-center transition-all duration-500 ease-out custom-visible bg-custom-background  text-custom-text z-50"
+    data-start-screen>
+    <div class="absolute inset-0 h-full">
+      <video class="absolute bottom-5 left-1/2 w-1/2 block -translate-x-1/2" height="252" width="320" autoplay loop
+        muted>
+        <source src="./public/video/cat_hides.webm" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 h-full bg-custom-background opacity-90"></div>
+    </div>
+    <div class="relative p-8 w-full leading-normal max-w-md flex flex-col items-center gap-6">
       <div class="">
         <h2 class="text-xl font-semibold text-center">You've lost your cat&nbsp;:( </h2>
         <p class="text-center">You need to find her, but the city is full of danger.</p>
@@ -124,19 +132,17 @@
         <input id="rangeInput-1" type="range" min="5" max="100" value="5" class="custom-range-input" data-range-rows>
         <label for="rangeInput-1" class="custom-range-label">1</label>
         <p>Mines</p>
-        <input id="rangeInput-1" type="range" min="5" max="100" value="5" class="custom-range-input" data-range-mines>
-        <label for="rangeInput-1" class="custom-range-label">1</label>
+        <input id="rangeInput-2" type="range" min="10" max="35" value="5" class="custom-range-input" data-range-mines>
+        <div><label for="rangeInput-2" class="custom-range-label">10</label>%</div>
       </div>
       <button
-        class="bg-custom-accent text-custom-background text-lg py-2 px-6 mx-auto  flex items-center justify-center space-x-2 hover:bg-custom-text hover:shadow-xl active:translate-y-1 transition-all duration-300 ease-out extend-click">
+        class="bg-custom-accent text-custom-background text-lg py-2 px-6 mx-auto  flex items-center justify-center space-x-2 hover:bg-custom-text hover:shadow-xl active:translate-y-1 transition-all duration-300 ease-out extend-click"
+        data-start-button>
         <svg class="w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="none">
           <path d="M8 5v14l11-7z" />
         </svg>
         <span class="text-custom-background">start</span>
       </button>
-      <video class="w-52 block" height="252" width="320" autoplay loop muted>
-        <source src="./public/video/cat_hides.webm" type="video/mp4">
-      </video>
     </div>
   </div>
 </body>

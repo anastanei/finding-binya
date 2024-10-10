@@ -1,15 +1,35 @@
 import { Cell } from "./cell.js";
 import { Minesweeper } from "./minesweeper.js";
+import { calculateFieldSize } from "./calculateFieldSize.js";
 
 export class StartScreen {
   constructor() {
     this.createGuide();
-    this.setRangeValue("[data-range-cols]", "rangeInput-0", 5, 120);
-    this.handleRangeChange("[data-range-cols]", "rangeInput-0");
-    this.setRangeValue("[data-range-rows]", "rangeInput-1", 5, 120);
-    this.handleRangeChange("[data-range-rows]", "rangeInput-1");
 
-    new Minesweeper(5, 5, "[data-container]");
+    const startScreen = document.querySelector("[data-start-screen]");
+    const rangeInputCols = startScreen.querySelector("[data-range-cols]");
+    const rangeInputRows = startScreen.querySelector("[data-range-rows]");
+    const maxCol = calculateFieldSize();
+    const maxRows = calculateFieldSize("height");
+
+    this.setRangeValue(rangeInputCols, "rangeInput-0", 5, maxCol);
+    this.handleRangeChange(rangeInputCols, "rangeInput-0");
+    this.setRangeValue(rangeInputRows, "rangeInput-1", 5, maxRows);
+    this.handleRangeChange(rangeInputRows, "rangeInput-1");
+
+    // this.setRangeValue(rangeInputRows, "rangeInput-1", 5, maxRows);
+    const rangeInputMines = startScreen.querySelector("[data-range-mines]");
+    this.handleRangeChange(rangeInputMines, "rangeInput-2");
+
+    const startButton = startScreen.querySelector("[data-start-button]");
+    startButton.addEventListener("click", (event) => {
+      const cols = parseInt(rangeInputCols.value);
+      const rows = parseInt(rangeInputRows.value);
+      const mines = parseInt(rangeInputMines.value);
+      new Minesweeper(cols, rows, mines, "[data-container]");
+      startScreen.classList.remove("custom-visible");
+      startScreen.classList.add("custom-hidden");
+    });
   }
 
   createGuide() {
@@ -36,16 +56,14 @@ export class StartScreen {
     flaggedCellWrapper.appendChild(flaggedCell);
   }
 
-  setRangeValue(selector, rangeID, minValue, maxValue) {
-    const rangeInput = document.querySelector(selector);
+  setRangeValue(rangeInput, rangeID, minValue, maxValue) {
     const label = document.querySelector(`label[for="${rangeID}"]`);
 
     rangeInput.value = label.textContent = rangeInput.min = minValue;
     rangeInput.max = maxValue;
   }
 
-  handleRangeChange(selector, rangeID) {
-    const rangeInput = document.querySelector(selector);
+  handleRangeChange(rangeInput, rangeID) {
     const label = document.querySelector(`label[for="${rangeID}"]`);
 
     rangeInput.addEventListener("input", (event) => {
