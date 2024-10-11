@@ -120,7 +120,7 @@ html {
 
 @media (hover: hover) {
   .background-window:hover .window-area {
-    background-color: #FABC3F;
+    @apply bg-opacity-10;
   }
 }
 .cell-svg {

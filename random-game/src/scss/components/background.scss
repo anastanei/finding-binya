@@ -1,10 +1,10 @@
 // @keyframes blink {
 //   0%,
 //   100% {
-//     opacity: 0.5;
+//     opacity: 0.3;
 //   }
 //   50% {
-//     opacity: 1;
+//     opacity: 0.6;
 //   }
 // }
 
@@ -30,7 +30,6 @@
     background-repeat: repeat;
     background-size: 200px 200px;
     opacity: 0.5;
-    // animation: blink 7s ease-in-out infinite;
   }
 }
 
@@ -127,7 +126,7 @@ $second-house-max-height: 0%;
 }
 @media (hover: hover) {
   .background-window:hover .window-area {
-    background-color: $custom-accent;
+    @apply bg-opacity-10;
   }
 }
 

@@ -6,7 +6,7 @@ export class Minesweeper {
     this.cols = cols;
     this.rows = rows;
     this.length = this.cols * this.rows;
-    this.mineAmount = Math.floor((this.length * mines) / 100);
+    this.mineAmount = Math.round((this.length * mines) / 100);
     console.log(cols, rows, cols * rows, this.mineAmount);
     this.isStarted = false;
     this.disabledCount = 0;
@@ -88,7 +88,7 @@ export class Minesweeper {
       node.insertAdjacentHTML(
         "afterbegin",
         `<svg class="cell-svg text-custom-secondaryAccent" fill="currentColor">
-               <use xlink:href="#icon-ghost"></use>
+               <use xlink:href="#icon-heart"></use>
                </svg>`
       );
       this.container.classList.add("pointer-events-none");
