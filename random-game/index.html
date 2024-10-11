@@ -31,12 +31,13 @@
 
 <body class="text-xs leading-none font-georgia sm:text-lg lg:text-base 2xl:text-xl text-custom-text">
   <div class="relative flex flex-col justify-between min-h-screen">
-    <!--bg-center bg-[url('../../public/img/background.jpg')] -->
     <main class="relative py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 grow items-center justify-center flex ">
       <div class="absolute inset-0 h-full">
         <div class="relative backround-sky text-custom-text overflow-x-hidden bg-custom-text  h-full">
           <div
-            class="background-house-clip-path background-house-custom-width absolute bottom-0 left-0 h-1/2 bg-custom-background">
+            class="background-house-clip-path background-house-custom-width absolute bottom-0 left-0 h-1/2 bg-custom-background items-end"
+            data-houses>
+
           </div>
         </div>
       </div>
@@ -90,7 +91,7 @@
     </footer>
   </div>
   <div id="modal"
-    class="select-none fixed top-0 left-0 right-0 min-h-screen h-auto flex items-center justify-center transition-all duration-500 ease-out custom-visible bg-custom-background  text-custom-text z-50"
+    class="select-none absolute top-0 left-0 right-0  flex items-center justify-center custom-visible bg-custom-background  text-custom-text z-50 modal-height transition-all duration-500 ease-out"
     data-start-screen>
     <div class="absolute inset-0 h-full">
       <video class="absolute bottom-5 left-1/2 w-1/2 block -translate-x-1/2" height="252" width="320" autoplay loop

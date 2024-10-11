@@ -38,9 +38,17 @@
   opacity: 1;
 }
 
+.modal-height {
+  min-height: 100vh;
+  height: auto;
+}
+
 .custom-hidden {
   visibility: hidden;
   opacity: 0;
+  position: fixed;
+  min-height: 0;
+  height: 0;
 }
 
 .bigger-text {
