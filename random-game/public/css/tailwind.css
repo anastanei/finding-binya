@@ -1038,6 +1038,11 @@ video {
   width: 100%;
 }
 
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .min-w-6 {
   min-width: 1.5rem;
 }
@@ -1048,6 +1053,10 @@ video {
 
 .max-w-lg {
   max-width: 32rem;
+}
+
+.max-w-\[30dvh\] {
+  max-width: 30dvh;
 }
 
 .grow {
