@@ -1,10 +1,6 @@
-//import { Modal } from "./modal.js";
-// const modalEl = ;
-// const modal = new Modal(modalSelector);
-// const modalSelector = "[data-modal]";
-
 import { getRandomNumber } from "./getRandomNumber.js";
 import { Cell } from "./cell.js";
+import { createDialog } from "./createDialog.js";
 
 export class Minesweeper {
   constructor(cols, rows, mines, containerSelector) {
@@ -12,11 +8,39 @@ export class Minesweeper {
     this.rows = rows;
     this.length = this.cols * this.rows;
     this.mineAmount = Math.round((this.length * mines) / 100);
-    console.log(cols, rows, cols * rows, this.mineAmount);
+    // console.log(cols, rows, cols * rows, this.mineAmount);
     this.isStarted = false;
     this.disabledCount = 0;
     this.maxDisabledCount = this.length - this.mineAmount;
     this.container = document.querySelector(containerSelector);
+    this.container.style.setProperty(
+      "grid-template-columns",
+      `repeat(${this.cols}, minmax(1.5rem, 1fr))`
+    );
+    this.reset();
+  }
+
+  reset() {
+    while (this.container.firstChild) {
+      this.container.removeChild(this.container.firstChild);
+    }
+
+    this.array = [];
+    this.matrix = [];
+    this.cellNodes = {};
+    this.minePositions = [];
+    this.isStarted = false;
+    this.disabledCount = 0;
+    this.maxDisabledCount = this.length - this.mineAmount;
+
+    const newContainer = this.container.cloneNode(true);
+    this.container.replaceWith(newContainer);
+    this.container = newContainer;
+
+    this.showEl("[data-game-video]", false);
+
+    this.hideEl("[data-win-video]");
+
     this.container.style.setProperty(
       "grid-template-columns",
       `repeat(${this.cols}, minmax(1.5rem, 1fr))`
@@ -32,7 +56,6 @@ export class Minesweeper {
     this.createEmptyField(this.matrix);
 
     this.container.addEventListener("click", (event) => {
-      console.log(event.type);
       const cell = this.getCell(event);
       if (cell) {
         const [node, x, y] = cell;
@@ -45,8 +68,7 @@ export class Minesweeper {
           this.openCell(node, matrixItem);
           this.openAdjacentWhileEmpty(x, y);
         } else if (matrixItem === "mine") {
-          this.openMines();
-          console.log("losing");
+          this.handleLosing();
         } else {
           this.openCell(node, matrixItem);
         }
@@ -54,7 +76,6 @@ export class Minesweeper {
     });
 
     this.container.addEventListener("contextmenu", (event) => {
-      console.log(event.type);
       event.preventDefault();
       if (this.isStarted) {
         const [cell] = this.getCell(event);
@@ -93,8 +114,8 @@ export class Minesweeper {
       node.insertAdjacentHTML(
         "afterbegin",
         `<svg class="cell-svg text-custom-secondaryAccent" fill="currentColor">
-               <use xlink:href="#icon-heart"></use>
-               </svg>`
+        <use xlink:href="#icon-heart"></use>
+        </svg>`
       );
       this.container.classList.add("pointer-events-none");
     });
@@ -125,10 +146,50 @@ export class Minesweeper {
     }
   }
 
+  handleLosing() {
+    this.hideEl("[data-game-video]", false);
+    this.openMines();
+
+    const dialogNode = createDialog("lose");
+    document.body.prepend(dialogNode);
+    dialogNode.showModal();
+  }
+
   handleWin() {
     this.openMines();
-    console.log("win!");
+    this.hideEl("[data-game-video]", false);
+    this.showEl("[data-win-video]");
+
+    const dialogNode = createDialog("win");
+    document.body.prepend(dialogNode);
+    dialogNode.showModal();
+
     this.container.classList.add("pointer-events-none");
+  }
+
+  showEl(selector, visible = true) {
+    const el = document.querySelector(selector);
+    el.classList.add("custom-visible");
+    el.classList.remove("custom-hidden");
+
+    if (visible) {
+      el.classList.add("custom-visible");
+      el.classList.remove("custom-hidden");
+    } else {
+      el.classList.remove("opacity-0");
+      el.classList.add("opacity-100");
+    }
+  }
+
+  hideEl(selector, visible = true) {
+    const el = document.querySelector(selector);
+    if (visible) {
+      el.classList.add("custom-hidden");
+      el.classList.remove("custom-visible");
+    } else {
+      el.classList.add("opacity-0");
+      el.classList.remove("opacity-100");
+    }
   }
 
   openAdjacentWhileEmpty(x, y) {
@@ -208,6 +269,8 @@ export class Minesweeper {
   }
 
   createEmptyField(matrix) {
+    this.container.classList.remove("pointer-events-none");
+    this.container.textContent = "";
     matrix.forEach((row, y) => {
       row.forEach((_, x) => {
         const cell = new Cell(x, y).getNode();
@@ -243,7 +306,7 @@ export class Minesweeper {
     const selector = '[data-cell="true"]';
     let targetElement = event.target;
 
-    console.log("event.target", targetElement);
+    // console.log("event.target", targetElement);
     if (targetElement.tagName === "use") {
       targetElement = targetElement.closest("svg");
     }

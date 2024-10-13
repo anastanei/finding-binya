@@ -6,7 +6,6 @@ import { Component } from "./component.js";
 export class StartScreen {
   constructor(modal) {
     this.modalEl = modal;
-    console.log(this.modalEl);
 
     this.renderStartScreen();
     this.createGuide();
@@ -20,8 +19,6 @@ export class StartScreen {
     this.handleRangeChange(rangeInputCols, "rangeInput-0");
     this.setRangeValue(rangeInputRows, "rangeInput-1", 5, maxRows);
     this.handleRangeChange(rangeInputRows, "rangeInput-1");
-
-    // this.setRangeValue(rangeInputRows, "rangeInput-1", 5, maxRows);
 
     const rangeInputMines = this.modalEl.querySelector("[data-range-mines]");
     this.setRangeValue(rangeInputMines, "rangeInput-2", 10, 35);
@@ -89,9 +86,9 @@ export class StartScreen {
         attributes: {
           height: "252",
           width: "320",
-          autoplay: "",
-          loop: "",
-          muted: "",
+          autoplay: "true",
+          loop: "true",
+          muted: "true",
         },
       },
       videoSource
@@ -99,7 +96,7 @@ export class StartScreen {
 
     const overlayBackground = new Component({
       tag: "div",
-      classes: "absolute inset-0 h-full bg-custom-background opacity-90",
+      classes: "absolute inset-0 h-full bg-custom-background opacity-80",
     });
 
     const videoContainer = new Component(
@@ -223,7 +220,7 @@ export class StartScreen {
       {
         tag: "button",
         classes:
-          "bg-custom-accent text-custom-background py-2 px-6 mx-auto flex items-center justify-center space-x-2 hover:bg-custom-text hover:shadow-xl active:translate-y-1 transition-all duration-300 ease-out extend-click",
+          "custom-bg-hover custom-bg-hover--accent bg-custom-accent text-custom-background py-2 px-6 mx-auto flex items-center justify-center space-x-2 extend-click",
         attributes: { "data-start-button": "" },
       },
       svgIcon,

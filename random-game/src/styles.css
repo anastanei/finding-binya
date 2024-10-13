@@ -36,6 +36,20 @@ html {
   @apply mx-auto px-7 md:px-10 xl:px-20 max-w-custom sm:px-6;
 }
 
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.dialog {
+  animation: fadeInScale 0.5s ease-out forwards;
+}
+
 @media (hover: hover) {
   .custom-hover {
     @apply hover:text-custom-accent;
@@ -43,6 +57,19 @@ html {
 }
 .custom-hover {
   @apply transition-all duration-300 ease-out active:opacity-50;
+}
+
+@media (hover: hover) {
+  .custom-bg-hover {
+    @apply hover:bg-custom-accent;
+  }
+}
+.custom-bg-hover {
+  @apply transition-all duration-300 ease-out active:translate-y-1;
+}
+
+.custom-bg-hover--accent {
+  @apply hover:bg-custom-text;
 }
 
 .extend-click {

@@ -8,6 +8,20 @@
   @apply transition-all duration-300 ease-out active:opacity-50;
 }
 
+@media (hover: hover) {
+  .custom-bg-hover {
+    @apply hover:bg-custom-accent;
+  }
+}
+
+.custom-bg-hover {
+  @apply transition-all duration-300 ease-out active:translate-y-1;
+}
+
+.custom-bg-hover--accent {
+  @apply hover:bg-custom-text;
+}
+
 .extend-click {
   @apply relative;
 
