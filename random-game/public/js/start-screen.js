@@ -22,7 +22,9 @@ export class StartScreen {
     this.handleRangeChange(rangeInputRows, "rangeInput-1");
 
     // this.setRangeValue(rangeInputRows, "rangeInput-1", 5, maxRows);
+
     const rangeInputMines = this.modalEl.querySelector("[data-range-mines]");
+    this.setRangeValue(rangeInputMines, "rangeInput-2", 10, 35);
     this.handleRangeChange(rangeInputMines, "rangeInput-2");
 
     const startButton = this.modalEl.querySelector("[data-start-button]");
@@ -180,7 +182,7 @@ export class StartScreen {
         const rangeLabelComponent = new Component({
           tag: "label",
           attributes: { for: id },
-          text: "1",
+          text: "0",
         });
         return [labelComponent, inputComponent, rangeLabelComponent];
       }
