@@ -1,3 +1,8 @@
+//import { Modal } from "./modal.js";
+// const modalEl = ;
+// const modal = new Modal(modalSelector);
+// const modalSelector = "[data-modal]";
+
 import { getRandomNumber } from "./getRandomNumber.js";
 import { Cell } from "./cell.js";
 
