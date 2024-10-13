@@ -129,38 +129,38 @@ export class StartScreen {
     return playerNameContainer;
   }
   renderStartScreen() {
-    const videoSource = new Component({
-      tag: "source",
-      attributes: { src: "./public/video/cat_hides.webm", type: "video/webm" },
-    });
-    const video = new Component(
-      {
-        tag: "video",
-        classes: "absolute bottom-5 left-1/2 w-1/2 block -translate-x-1/2",
-        attributes: {
-          height: "252",
-          width: "320",
-          autoplay: "true",
-          loop: "true",
-          muted: "true",
-        },
-      },
-      videoSource
-    );
+    // const videoSource = new Component({
+    //   tag: "source",
+    //   attributes: { src: "./public/video/cat_hides.webm", type: "video/webm" },
+    // });
+    // const video = new Component(
+    //   {
+    //     tag: "video",
+    //     classes: "absolute bottom-5 left-1/2 w-1/2 block -translate-x-1/2",
+    //     attributes: {
+    //       height: "252",
+    //       width: "320",
+    //       autoplay: "true",
+    //       loop: "true",
+    //       muted: "true",
+    //     },
+    //   },
+    //   videoSource
+    // );
 
     const overlayBackground = new Component({
       tag: "div",
       classes: "absolute inset-0 h-full bg-custom-background opacity-80",
     });
 
-    const videoContainer = new Component(
-      {
-        tag: "div",
-        classes: "absolute inset-0 h-full",
-      },
-      video,
-      overlayBackground
-    );
+    // const videoContainer = new Component(
+    //   {
+    //     tag: "div",
+    //     classes: "absolute inset-0 h-full",
+    //   },
+    //   video,
+    //   overlayBackground
+    // );
 
     const title = new Component({
       tag: "h2",
@@ -310,7 +310,7 @@ export class StartScreen {
       formComponent
     );
 
-    this.modalEl.appendChild(videoContainer.getNode());
+    // this.modalEl.appendChild(videoContainer.getNode());
     this.modalEl.appendChild(modalContent.getNode());
     document.querySelector("#playerName").focus();
   }

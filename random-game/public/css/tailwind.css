@@ -1099,6 +1099,10 @@ video {
   min-width: 1.5rem;
 }
 
+.max-w-\[128px\] {
+  max-width: 128px;
+}
+
 .max-w-\[30dvh\] {
   max-width: 30dvh;
 }
@@ -1109,14 +1113,6 @@ video {
 
 .max-w-lg {
   max-width: 32rem;
-}
-
-.max-w-\[50px\] {
-  max-width: 50px;
-}
-
-.max-w-\[128px\] {
-  max-width: 128px;
 }
 
 .grow {
@@ -1382,6 +1378,11 @@ video {
   font-family: Georgia, sans-serif;
 }
 
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -1400,11 +1401,6 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
 }
 
 .font-semibold {
