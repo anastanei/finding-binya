@@ -1,6 +1,7 @@
 import { Component } from "./component.js";
-
 import { StartScreen } from "./start-screen.js";
+import { getTop } from "./getTop.js";
+import { displayTop } from "./displayTop.js";
 
 export function createDialog(status) {
   const message = status === "win" ? "You've won!" : "You've lost:(";
@@ -33,14 +34,16 @@ export function createDialog(status) {
 
   tryAgainButton.getNode().addEventListener("click", () => {
     dialog.getNode().close();
-
-    const modal = document.querySelector("[data-modal]");
-
-    modal.textContent = "";
-
-    modal.classList.remove("custom-hidden");
-    modal.classList.add("custom-visible");
     new StartScreen(document.querySelector("[data-modal]"));
+  });
+
+  watchLeadersButton.getNode().addEventListener("click", () => {
+    const topResults = getTop();
+
+    dialog.getNode().close();
+    topResults.forEach((result, index) => {
+      displayTop(document.querySelector("[data-modal]"), topResults);
+    });
   });
 
   dialog.append(messageElement, watchLeadersButton, tryAgainButton);

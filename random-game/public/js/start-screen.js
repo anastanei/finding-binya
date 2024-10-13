@@ -6,7 +6,9 @@ import { Component } from "./component.js";
 export class StartScreen {
   constructor(modal) {
     this.modalEl = modal;
-
+    this.modalEl.textContent = "";
+    this.modalEl.classList.remove("custom-hidden");
+    this.modalEl.classList.add("custom-visible");
     this.renderStartScreen();
     this.createGuide();
 
@@ -31,6 +33,7 @@ export class StartScreen {
       const rows = parseInt(rangeInputRows.value);
       const mines = parseInt(rangeInputMines.value);
       const playerName = this.modalEl.querySelector("[data-player-name]").value;
+      console.log(playerName);
       new Minesweeper(cols, rows, mines, "[data-container]", playerName);
       this.modalEl.classList.remove("custom-visible");
       this.modalEl.classList.add("custom-hidden");

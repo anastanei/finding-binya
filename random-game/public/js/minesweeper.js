@@ -1,14 +1,14 @@
 import { getRandomNumber } from "./getRandomNumber.js";
 import { Cell } from "./cell.js";
 import { createDialog } from "./createDialog.js";
+import { saveResult } from "./saveResult.js";
 
 export class Minesweeper {
-  constructor(cols, rows, mines, containerSelector) {
+  constructor(cols, rows, mines, containerSelector, playerName) {
     this.cols = cols;
     this.rows = rows;
     this.length = this.cols * this.rows;
     this.mineAmount = Math.round((this.length * mines) / 100);
-    // console.log(cols, rows, cols * rows, this.mineAmount);
     this.isStarted = false;
     this.disabledCount = 0;
     this.maxDisabledCount = this.length - this.mineAmount;
@@ -18,6 +18,7 @@ export class Minesweeper {
       `repeat(${this.cols}, minmax(1.5rem, 1fr))`
     );
     this.reset();
+    this.name = playerName;
   }
 
   reset() {
@@ -176,6 +177,8 @@ export class Minesweeper {
     this.openMines();
     this.hideEl("[data-game-video]", false);
     this.showEl("[data-win-video]");
+
+    saveResult(this.name, this.mineAmount);
 
     const dialogNode = this.checkDialog("win");
     dialogNode.showModal();
