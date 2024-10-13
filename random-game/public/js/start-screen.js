@@ -24,12 +24,14 @@ export class StartScreen {
     this.setRangeValue(rangeInputMines, "rangeInput-2", 10, 35);
     this.handleRangeChange(rangeInputMines, "rangeInput-2");
 
-    const startButton = this.modalEl.querySelector("[data-start-button]");
-    startButton.addEventListener("click", (event) => {
+    const form = this.modalEl.querySelector("[data-player-form]");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
       const cols = parseInt(rangeInputCols.value);
       const rows = parseInt(rangeInputRows.value);
       const mines = parseInt(rangeInputMines.value);
-      new Minesweeper(cols, rows, mines, "[data-container]");
+      const playerName = this.modalEl.querySelector("[data-player-name]").value;
+      new Minesweeper(cols, rows, mines, "[data-container]", playerName);
       this.modalEl.classList.remove("custom-visible");
       this.modalEl.classList.add("custom-hidden");
     });
@@ -74,6 +76,55 @@ export class StartScreen {
     });
   }
 
+  addPlayerLoginField() {
+    const playerNameLabel = new Component({
+      tag: "label",
+      text: "Your name:",
+      attributes: { for: "playerName" },
+    });
+
+    const playerNameInput = new Component({
+      tag: "input",
+      classes:
+        "focus:outline-none focus:outline-custom-accent bg-transparent p-2",
+      attributes: {
+        type: "text",
+        id: "playerName",
+        "data-player-name": "",
+        placeholder: "Enter your login",
+        required: true,
+        minlength: 3,
+        maxlength: 15,
+        pattern: "^[A-Za-zА-Яа-я0-9]+$",
+        autocomplete: "off",
+      },
+    });
+
+    playerNameInput.getNode().addEventListener("input", function () {
+      if (this.validity.valueMissing) {
+        this.setCustomValidity("Please enter your name.");
+      } else if (this.validity.tooShort) {
+        this.setCustomValidity("Name must be at least 3 characters long.");
+      } else if (this.validity.tooLong) {
+        this.setCustomValidity("Name must be no longer than 15 characters.");
+      } else if (this.validity.patternMismatch) {
+        this.setCustomValidity("Only letters and numbers are allowed.");
+      } else {
+        this.setCustomValidity("");
+      }
+    });
+
+    const playerNameContainer = new Component(
+      {
+        tag: "div",
+        classes: "flex flex-col gap-2",
+      },
+      playerNameLabel,
+      playerNameInput
+    );
+
+    return playerNameContainer;
+  }
   renderStartScreen() {
     const videoSource = new Component({
       tag: "source",
@@ -221,10 +272,22 @@ export class StartScreen {
         tag: "button",
         classes:
           "custom-bg-hover custom-bg-hover--accent bg-custom-accent text-custom-background py-2 px-6 mx-auto flex items-center justify-center space-x-2 extend-click",
-        attributes: { "data-start-button": "" },
+        attributes: { "data-start-button": "", type: "submit" },
       },
       svgIcon,
       buttonText
+    );
+
+    const playerNameContainer = this.addPlayerLoginField();
+
+    const formComponent = new Component(
+      {
+        tag: "form",
+        classes: "flex flex-col items-start gap-4 w-full",
+        attributes: { "data-player-form": "true" },
+      },
+      playerNameContainer,
+      startButton
     );
 
     const modalContent = new Component(
@@ -241,10 +304,11 @@ export class StartScreen {
         text: "Set up the field:",
       }),
       fieldSetupContainer,
-      startButton
+      formComponent
     );
 
     this.modalEl.appendChild(videoContainer.getNode());
     this.modalEl.appendChild(modalContent.getNode());
+    document.querySelector("#playerName").focus();
   }
 }

@@ -146,12 +146,29 @@ export class Minesweeper {
     }
   }
 
+  checkDialog(status) {
+    let dialogNode = document.querySelector(".dialog");
+
+    const message = status === "win" ? "You've won!" : "You've lost :(";
+
+    if (dialogNode) {
+      const messageElement = dialogNode.querySelector(".dialog-message");
+      if (messageElement) {
+        messageElement.textContent = message;
+      }
+    } else {
+      dialogNode = createDialog(status);
+      document.body.prepend(dialogNode);
+    }
+
+    return dialogNode;
+  }
+
   handleLosing() {
     this.hideEl("[data-game-video]", false);
     this.openMines();
 
-    const dialogNode = createDialog("lose");
-    document.body.prepend(dialogNode);
+    const dialogNode = this.checkDialog("lose");
     dialogNode.showModal();
   }
 
@@ -160,8 +177,7 @@ export class Minesweeper {
     this.hideEl("[data-game-video]", false);
     this.showEl("[data-win-video]");
 
-    const dialogNode = createDialog("win");
-    document.body.prepend(dialogNode);
+    const dialogNode = this.checkDialog("win");
     dialogNode.showModal();
 
     this.container.classList.add("pointer-events-none");
