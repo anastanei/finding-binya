@@ -39,7 +39,6 @@ export class Minesweeper {
     this.container = newContainer;
 
     this.showEl("[data-game-video]", false);
-
     this.hideEl("[data-win-video]");
 
     this.container.style.setProperty(
@@ -56,45 +55,75 @@ export class Minesweeper {
     this.cellNodes = {};
     this.createEmptyField(this.matrix);
 
-    this.container.addEventListener("click", (event) => {
+    let touchStartTime = 0;
+    let longPressTimeout;
+    const longPressDuration = 500;
+
+    const handleAction = (event, isLongPress = false) => {
       const cell = this.getCell(event);
       if (cell) {
         const [node, x, y] = cell;
-        if (!this.isStarted) {
-          this.handleFirstMove(x, y);
-        }
 
-        const matrixItem = this.getMatrixValue(x, y);
-        if (matrixItem === 0) {
-          this.openCell(node, matrixItem);
-          this.openAdjacentWhileEmpty(x, y);
-        } else if (matrixItem === "mine") {
-          this.handleLosing();
+        if (isLongPress) {
+          this.handleContextMenu(cell);
         } else {
-          this.openCell(node, matrixItem);
+          if (!this.isStarted) {
+            this.handleFirstMove(x, y);
+          }
+          const matrixItem = this.getMatrixValue(x, y);
+          if (matrixItem === 0) {
+            this.openCell(node, matrixItem);
+            this.openAdjacentWhileEmpty(x, y);
+          } else if (matrixItem === "mine") {
+            this.handleLosing();
+          } else {
+            this.openCell(node, matrixItem);
+          }
         }
       }
+    };
+
+    this.container.addEventListener("click", (event) => {
+      handleAction(event, false);
     });
 
     this.container.addEventListener("contextmenu", (event) => {
       event.preventDefault();
-      if (this.isStarted) {
-        const [cell] = this.getCell(event);
-        if (cell) {
-          const svg = cell.querySelector("[data-cell-svg]");
-          if (svg) {
-            svg.remove();
-          } else {
-            cell.insertAdjacentHTML(
-              "afterbegin",
-              `<svg class="cell-svg cursor-pointer text-custom-background" fill="currentColor" data-cell-svg>
-               <use xlink:href="#icon-danger"></use>
-               </svg>`
-            );
-          }
-        }
+      handleAction(event, true);
+    });
+
+    this.container.addEventListener("touchstart", (event) => {
+      touchStartTime = Date.now();
+      longPressTimeout = setTimeout(() => {
+        handleAction(event, true);
+      }, longPressDuration);
+    });
+
+    this.container.addEventListener("touchend", (event) => {
+      clearTimeout(longPressTimeout);
+      if (Date.now() - touchStartTime < longPressDuration) {
+        handleAction(event, false);
       }
     });
+
+    this.container.addEventListener("touchmove", () => {
+      clearTimeout(longPressTimeout);
+    });
+  }
+
+  handleContextMenu(cell) {
+    const [node] = cell;
+    const svg = node.querySelector("[data-cell-svg]");
+    if (svg) {
+      svg.remove();
+    } else {
+      node.insertAdjacentHTML(
+        "afterbegin",
+        `<svg class="cell-svg cursor-pointer text-custom-background" fill="currentColor" data-cell-svg>
+           <use xlink:href="#icon-danger"></use>
+         </svg>`
+      );
+    }
   }
 
   handleFirstMove(x, y) {
@@ -137,7 +166,7 @@ export class Minesweeper {
         "afterbegin",
         `<svg class="cell-svg cursor-pointer text-black" version="1.0" xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512" fill="currentColor">
-        <path   d="M481.875,299.344L512,292.219l-4.656-19.641l-24.25,5.734c0-0.328,0.016-0.641,0.016-0.969   c0-38.078-10.531-72.781-28.969-102.359c15.438-53.938-13.438-124.547-13.438-124.547S387.813,73,357.719,100.297   C327.109,91.063,292.578,88.094,256,88.094c-36.766,0-71.484,2.563-102.203,11.781c-30.156-27.109-82.5-49.438-82.5-49.438   S42.406,121.063,57.859,175c-18.422,29.578-28.984,64.281-28.984,102.344c0,0.328,0.031,0.641,0.031,0.969l-24.25-5.734L0,292.219   l30.109,7.125c2.672,23.578,9.672,44.75,20.234,63.422L12.875,377.75l7.484,18.75l41.203-16.484   c39.797,53.141,111.969,81.547,194.438,81.547c82.453,0,154.641-28.406,194.438-81.547l41.203,16.484l7.484-18.75l-37.469-14.984   C472.219,344.094,479.219,322.922,481.875,299.344z"/>
+        <path d="M481.875,299.344L512,292.219l-4.656-19.641l-24.25,5.734c0-0.328,0.016-0.641,0.016-0.969 c0-38.078-10.531-72.781-28.969-102.359c15.438-53.938-13.438-124.547-13.438-124.547S387.813,73,357.719,100.297 C327.109,91.063,292.578,88.094,256,88.094c-36.766,0-71.484,2.563-102.203,11.781c-30.156-27.109-82.5-49.438-82.5-49.438 S42.406,121.063,57.859,175c-18.422,29.578-28.984,64.281-28.984,102.344c0,0.328,0.031,0.641,0.031,0.969l-24.25-5.734L0,292.219 l30.109,7.125c2.672,23.578,9.672,44.75,20.234,63.422L12.875,377.75l7.484,18.75l41.203-16.484 c39.797,53.141,111.969,81.547,194.438,81.547c82.453,0,154.641-28.406,194.438-81.547l41.203,16.484l7.484-18.75l-37.469-14.984 C472.219,344.094,479.219,322.922,481.875,299.344z"/>
         </svg>`
       );
       this.disabledCount = 0;
@@ -149,7 +178,6 @@ export class Minesweeper {
 
   checkDialog(status) {
     let dialogNode = document.querySelector(".dialog");
-
     const message = status === "win" ? "You've won!" : "You've lost :(";
 
     if (dialogNode) {
@@ -161,14 +189,12 @@ export class Minesweeper {
       dialogNode = createDialog(status);
       document.body.prepend(dialogNode);
     }
-
     return dialogNode;
   }
 
   handleLosing() {
     this.hideEl("[data-game-video]", false);
     this.openMines();
-
     const dialogNode = this.checkDialog("lose");
     dialogNode.showModal();
   }
@@ -177,12 +203,9 @@ export class Minesweeper {
     this.openMines();
     this.hideEl("[data-game-video]", false);
     this.showEl("[data-win-video]");
-
     saveResult(this.name, this.mineAmount);
-
     const dialogNode = this.checkDialog("win");
     dialogNode.showModal();
-
     this.container.classList.add("pointer-events-none");
   }
 
@@ -290,11 +313,43 @@ export class Minesweeper {
   createEmptyField(matrix) {
     this.container.classList.remove("pointer-events-none");
     this.container.textContent = "";
+
     matrix.forEach((row, y) => {
       row.forEach((_, x) => {
         const cell = new Cell(x, y).getNode();
         this.container.appendChild(cell);
         this.cellNodes[`${x},${y}`] = cell;
+
+        cell.addEventListener("click", (event) => {
+          this.handleCellAction(event, false);
+        });
+
+        cell.addEventListener("contextmenu", (event) => {
+          event.preventDefault();
+          this.handleCellAction(event, true);
+        });
+
+        let touchStartTime = 0;
+        let longPressTimeout;
+        const longPressDuration = 500;
+
+        cell.addEventListener("touchstart", (event) => {
+          touchStartTime = Date.now();
+          longPressTimeout = setTimeout(() => {
+            this.handleCellAction(event, true);
+          }, longPressDuration);
+        });
+
+        cell.addEventListener("touchend", (event) => {
+          clearTimeout(longPressTimeout);
+          if (Date.now() - touchStartTime < longPressDuration) {
+            this.handleCellAction(event, false);
+          }
+        });
+
+        cell.addEventListener("touchmove", () => {
+          clearTimeout(longPressTimeout);
+        });
       });
     });
   }
