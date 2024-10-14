@@ -19,7 +19,6 @@ export class StartScreen {
       playerName: "",
     };
     const settings = getSettings() || defaultSettings;
-    console.log(settings);
 
     const maxCol = calculateFieldSize();
     const maxRows = calculateFieldSize("height");
