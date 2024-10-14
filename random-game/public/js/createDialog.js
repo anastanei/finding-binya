@@ -21,15 +21,13 @@ export function createDialog(status) {
   const watchLeadersButton = new Component({
     tag: "button",
     text: "Watch leaders table",
-    classes:
-      "dialog-button m-1 py-2 px-4 bg-custom-text text-custom-background extend-click custom-bg-hover",
+    classes: "dialog-button bg-custom-text",
   });
 
   const tryAgainButton = new Component({
     tag: "button",
     text: "Try again",
-    classes:
-      "dialog-button m-1 py-2 px-4 bg-custom-accent text-custom-background extend-click custom-bg-hover custom-bg-hover--accent",
+    classes: "dialog-button bg-custom-accent custom-bg-hover--accent",
   });
 
   tryAgainButton.getNode().addEventListener("click", () => {

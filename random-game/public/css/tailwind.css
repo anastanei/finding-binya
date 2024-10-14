@@ -291,6 +291,50 @@ html {
   line-height: 1.75rem;
 }
 
+.dialog-button {
+  margin: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(98 78 136 / var(--tw-text-opacity));
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .dialog-button:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(250 188 63 / var(--tw-bg-opacity));
+  }
+}
+
+.dialog-button {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dialog-button:active {
+  --tw-translate-y: 0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.dialog-button {
+  position: relative;
+}
+
+.dialog-button::before {
+  content: "";
+  position: absolute;
+  top: -0.5rem;
+  bottom: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -921,10 +965,6 @@ video {
   bottom: 0px;
 }
 
-.bottom-5 {
-  bottom: 1.25rem;
-}
-
 .left-0 {
   left: 0px;
 }
@@ -1447,14 +1487,15 @@ video {
   opacity: 1;
 }
 
-.opacity-80 {
-  opacity: 0.8;
-}
-
 .shadow-custom-inset {
   --tw-shadow: inset 3px 3px 5px #FFEECC, inset -3px -3px 5px #BBBB88;
   --tw-shadow-colored: inset 3px 3px 5px var(--tw-shadow-color), inset -3px -3px 5px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .transition-all {
