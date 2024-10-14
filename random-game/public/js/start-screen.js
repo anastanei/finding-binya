@@ -2,6 +2,8 @@ import { Cell } from "./cell.js";
 import { Minesweeper } from "./minesweeper.js";
 import { calculateFieldSize } from "./calculateFieldSize.js";
 import { Component } from "./component.js";
+import { getSettings } from "./getSettings.js";
+import { saveSettings } from "./saveSettings.js";
 
 export class StartScreen {
   constructor(modal) {
@@ -9,22 +11,50 @@ export class StartScreen {
     this.modalEl.textContent = "";
     this.modalEl.classList.remove("custom-hidden");
     this.modalEl.classList.add("custom-visible");
+
+    const defaultSettings = {
+      rows: 5,
+      columns: 5,
+      mines: 10,
+      playerName: "",
+    };
+    const settings = getSettings() || defaultSettings;
+    console.log(settings);
+
+    const maxCol = calculateFieldSize();
+    const maxRows = calculateFieldSize("height");
+    const colsDef = settings.columns > maxCol ? maxCol : settings.columns;
+    const rowsDef = settings.rows > maxRows ? maxRows : settings.rows;
+    const minesDef = settings.mines;
+    this.playerNameDef = settings.playerName;
+
     this.renderStartScreen();
     this.createGuide();
 
     const rangeInputCols = this.modalEl.querySelector("[data-range-cols]");
     const rangeInputRows = this.modalEl.querySelector("[data-range-rows]");
-    const maxCol = calculateFieldSize();
-    const maxRows = calculateFieldSize("height");
-
-    this.setRangeValue(rangeInputCols, "rangeInput-0", 5, maxCol);
-    this.handleRangeChange(rangeInputCols, "rangeInput-0");
-    this.setRangeValue(rangeInputRows, "rangeInput-1", 5, maxRows);
-    this.handleRangeChange(rangeInputRows, "rangeInput-1");
-
     const rangeInputMines = this.modalEl.querySelector("[data-range-mines]");
-    this.setRangeValue(rangeInputMines, "rangeInput-2", 10, 35);
-    this.handleRangeChange(rangeInputMines, "rangeInput-2");
+
+    if (rangeInputCols) {
+      this.setRangeValue(rangeInputCols, "rangeInput-0", 5, maxCol, colsDef);
+      this.handleRangeChange(rangeInputCols, "rangeInput-0");
+    } else {
+      console.error("Element with data-range-cols not found.");
+    }
+
+    if (rangeInputRows) {
+      this.setRangeValue(rangeInputRows, "rangeInput-1", 5, maxRows, rowsDef);
+      this.handleRangeChange(rangeInputRows, "rangeInput-1");
+    } else {
+      console.error("Element with data-range-rows not found.");
+    }
+
+    if (rangeInputMines) {
+      this.setRangeValue(rangeInputMines, "rangeInput-2", 10, 35, minesDef);
+      this.handleRangeChange(rangeInputMines, "rangeInput-2");
+    } else {
+      console.error("Element with data-range-mines not found.");
+    }
 
     const form = this.modalEl.querySelector("[data-player-form]");
     form.addEventListener("submit", (event) => {
@@ -33,6 +63,8 @@ export class StartScreen {
       const rows = parseInt(rangeInputRows.value);
       const mines = parseInt(rangeInputMines.value);
       const playerName = this.modalEl.querySelector("[data-player-name]").value;
+
+      saveSettings(rows, cols, mines, playerName);
       new Minesweeper(cols, rows, mines, "[data-container]", playerName);
       this.modalEl.classList.remove("custom-visible");
       this.modalEl.classList.add("custom-hidden");
@@ -63,10 +95,10 @@ export class StartScreen {
     flaggedCellWrapper.appendChild(flaggedCell);
   }
 
-  setRangeValue(rangeInput, rangeID, minValue, maxValue) {
+  setRangeValue(rangeInput, rangeID, minValue, maxValue, defValue) {
     const label = document.querySelector(`label[for="${rangeID}"]`);
-
-    rangeInput.value = label.textContent = rangeInput.min = minValue;
+    rangeInput.min = minValue;
+    rangeInput.value = label.textContent = defValue;
     rangeInput.max = maxValue;
   }
 
@@ -99,6 +131,7 @@ export class StartScreen {
         maxlength: 15,
         pattern: "^[A-Za-zА-Яа-я0-9]+$",
         autocomplete: "off",
+        value: this.playerNameDef || "",
       },
     });
 
@@ -119,7 +152,7 @@ export class StartScreen {
     const playerNameContainer = new Component(
       {
         tag: "div",
-        classes: "flex flex-col gap-2",
+        classes: "flex gap-2 items-center",
       },
       playerNameLabel,
       playerNameInput
@@ -127,6 +160,7 @@ export class StartScreen {
 
     return playerNameContainer;
   }
+
   renderStartScreen() {
     const title = new Component({
       tag: "h2",
