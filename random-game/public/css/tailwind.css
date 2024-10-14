@@ -335,6 +335,12 @@ html {
   right: -0.5rem;
 }
 
+.dialog-button:focus {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: #FABC3F;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -1551,6 +1557,14 @@ video {
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.focus\:outline:focus {
+  outline-style: solid;
+}
+
+.focus\:outline-2:focus {
+  outline-width: 2px;
 }
 
 .focus\:outline-custom-accent:focus {
