@@ -56,7 +56,7 @@ export class Minesweeper {
     this.createEmptyField(this.matrix);
 
     let longPressTimeout;
-    const longPressDuration = 300;
+    const longPressDuration = 100;
 
     this.container.addEventListener("click", (event) => {
       this.handleAction(event, false);
