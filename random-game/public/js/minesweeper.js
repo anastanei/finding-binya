@@ -114,16 +114,25 @@ export class Minesweeper {
   handleContextMenu(cell) {
     const [node] = cell;
     const svg = node.querySelector("[data-cell-svg]");
+
     if (svg) {
       svg.remove();
     } else {
       node.insertAdjacentHTML(
         "afterbegin",
         `<svg class="cell-svg cursor-pointer text-custom-background" fill="currentColor" data-cell-svg>
-           <use xlink:href="#icon-danger"></use>
-         </svg>`
+         <use xlink:href="#icon-danger"></use>
+       </svg>`
       );
     }
+    this.blockCell(node);
+  }
+
+  blockCell(node) {
+    node.style.pointerEvents = "none";
+    setTimeout(() => {
+      node.style.pointerEvents = "auto";
+    }, 300);
   }
 
   handleFirstMove(x, y) {
