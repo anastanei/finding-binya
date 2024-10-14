@@ -33,7 +33,6 @@ export class StartScreen {
       const rows = parseInt(rangeInputRows.value);
       const mines = parseInt(rangeInputMines.value);
       const playerName = this.modalEl.querySelector("[data-player-name]").value;
-      console.log(playerName);
       new Minesweeper(cols, rows, mines, "[data-container]", playerName);
       this.modalEl.classList.remove("custom-visible");
       this.modalEl.classList.add("custom-hidden");
@@ -129,39 +128,6 @@ export class StartScreen {
     return playerNameContainer;
   }
   renderStartScreen() {
-    // const videoSource = new Component({
-    //   tag: "source",
-    //   attributes: { src: "./public/video/cat_hides.webm", type: "video/webm" },
-    // });
-    // const video = new Component(
-    //   {
-    //     tag: "video",
-    //     classes: "absolute bottom-5 left-1/2 w-1/2 block -translate-x-1/2",
-    //     attributes: {
-    //       height: "252",
-    //       width: "320",
-    //       autoplay: "true",
-    //       loop: "true",
-    //       muted: "true",
-    //     },
-    //   },
-    //   videoSource
-    // );
-
-    const overlayBackground = new Component({
-      tag: "div",
-      classes: "absolute inset-0 h-full bg-custom-background opacity-80",
-    });
-
-    // const videoContainer = new Component(
-    //   {
-    //     tag: "div",
-    //     classes: "absolute inset-0 h-full",
-    //   },
-    //   video,
-    //   overlayBackground
-    // );
-
     const title = new Component({
       tag: "h2",
       classes: "bigger-text font-semibold",
@@ -216,7 +182,7 @@ export class StartScreen {
         attributes: { "data-range-rows": "" },
       },
       {
-        label: "Mines (%)",
+        label: "Traps (%)",
         id: "rangeInput-2",
         attributes: { "data-range-mines": "", min: "10", max: "35" },
       },
@@ -309,8 +275,6 @@ export class StartScreen {
       fieldSetupContainer,
       formComponent
     );
-
-    // this.modalEl.appendChild(videoContainer.getNode());
     this.modalEl.appendChild(modalContent.getNode());
     document.querySelector("#playerName").focus();
   }
