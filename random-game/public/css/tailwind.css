@@ -112,6 +112,15 @@ html {
     --tw-bg-opacity: 1;
     background-color: rgb(250 188 63 / var(--tw-bg-opacity));
   }
+
+  .hover-cell:hover {
+    cursor: pointer;
+    --tw-bg-opacity: 1;
+    background-color: rgb(250 188 63 / var(--tw-bg-opacity));
+    --tw-shadow: inset 3px 3px 5px #FFCD5F, inset -3px -3px 5px #CCAA24;
+    --tw-shadow-colored: inset 3px 3px 5px var(--tw-shadow-color), inset -3px -3px 5px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
 }
 
 .custom-bg-hover {
@@ -1504,10 +1513,6 @@ video {
   outline-offset: 2px;
 }
 
-.filter {
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1552,12 +1557,6 @@ video {
   background-color: rgb(250 188 63 / var(--tw-bg-opacity));
 }
 
-.hover\:shadow-custom-inset-hover:hover {
-  --tw-shadow: inset 3px 3px 5px #FFCD5F, inset -3px -3px 5px #CCAA24;
-  --tw-shadow-colored: inset 3px 3px 5px var(--tw-shadow-color), inset -3px -3px 5px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1578,6 +1577,11 @@ video {
 .active\:translate-y-0\.5:active {
   --tw-translate-y: 0.125rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.active\:bg-custom-accent:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 188 63 / var(--tw-bg-opacity));
 }
 
 .active\:bg-custom-background:active {

@@ -64,6 +64,11 @@ html {
     @apply hover:bg-custom-accent;
   }
 }
+@media (hover: hover) {
+  .hover-cell {
+    @apply hover:cursor-pointer hover:bg-custom-accent hover:shadow-custom-inset-hover;
+  }
+}
 .custom-bg-hover {
   @apply transition-all duration-300 ease-out active:translate-y-1;
 }
