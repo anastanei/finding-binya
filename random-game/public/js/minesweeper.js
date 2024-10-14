@@ -57,7 +57,7 @@ export class Minesweeper {
 
     let touchStartTime = 0;
     let longPressTimeout;
-    const longPressDuration = 500;
+    const longPressDuration = 300;
 
     const handleAction = (event, isLongPress = false) => {
       const cell = this.getCell(event);
