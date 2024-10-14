@@ -324,8 +324,6 @@ export class Minesweeper {
   getCell(event) {
     const selector = '[data-cell="true"]';
     let targetElement = event.target;
-
-    // console.log("event.target", targetElement);
     if (targetElement.tagName === "use") {
       targetElement = targetElement.closest("svg");
     }

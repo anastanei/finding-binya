@@ -8,28 +8,45 @@ export function displayTop(modalEl, topResults) {
   const headerRow = new Component(
     { tag: "tr", classes: "text-lg" },
     ...headers.map(
-      (header) => new Component({ tag: "th", text: header, classes: "" })
+      (header) => new Component({ tag: "th", text: header, classes: "p-2" })
     )
   );
 
-  const resultRows = topResults.map((result, index) => {
-    return new Component(
-      { tag: "tr", classes: "text-base" },
-      new Component({ tag: "td", text: `${index + 1}`, classes: "p-2" }),
-      new Component({
-        tag: "td",
-        text: result.playerName,
-        classes:
-          "p-2 text-ellipsis max-w-[128px] overflow-hidden whitespace-nowrap",
-      }),
-      new Component({ tag: "td", text: `${result.mines}`, classes: "p-2" }),
-      new Component({
-        tag: "td",
-        text: new Date(result.date).toLocaleDateString(),
-        classes: "",
-      })
-    );
-  });
+  const resultRows =
+    topResults.length > 0
+      ? topResults.map((result, index) => {
+          return new Component(
+            { tag: "tr", classes: "text-base" },
+            new Component({ tag: "td", text: `${index + 1}`, classes: "p-2" }),
+            new Component({
+              tag: "td",
+              text: result.playerName,
+              classes:
+                "p-2 text-ellipsis max-w-[128px] overflow-hidden whitespace-nowrap",
+            }),
+            new Component({
+              tag: "td",
+              text: `${result.mines}`,
+              classes: "p-2",
+            }),
+            new Component({
+              tag: "td",
+              text: new Date(result.date).toLocaleDateString(),
+              classes: "p-2",
+            })
+          );
+        })
+      : [
+          new Component(
+            { tag: "tr", classes: "text-base" },
+            new Component({
+              tag: "td",
+              text: "No data available yet",
+              classes: "p-2 text-center",
+              attributes: { colspan: 4 },
+            })
+          ),
+        ];
 
   const table = new Component(
     { tag: "table", classes: "p-5" },
@@ -51,7 +68,6 @@ export function displayTop(modalEl, topResults) {
   });
 
   const inner = new Component({ tag: "div", classes: "" });
-
   inner.append(table);
   inner.append(playAgainButton);
 

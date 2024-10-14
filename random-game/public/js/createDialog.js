@@ -9,7 +9,7 @@ export function createDialog(status) {
   const dialog = new Component({
     tag: "dialog",
     classes:
-      "dialog bg-custom-background bg-opacity-80 text-custom-text p-5 text-center w-fit",
+      "dialog bg-custom-background bg-opacity-80 text-custom-text p-5 text-center w-fit select-none",
   });
 
   const messageElement = new Component({
@@ -39,11 +39,8 @@ export function createDialog(status) {
 
   watchLeadersButton.getNode().addEventListener("click", () => {
     const topResults = getTop();
-
     dialog.getNode().close();
-    topResults.forEach((result, index) => {
-      displayTop(document.querySelector("[data-modal]"), topResults);
-    });
+    displayTop(document.querySelector("[data-modal]"), topResults);
   });
 
   dialog.append(messageElement, watchLeadersButton, tryAgainButton);

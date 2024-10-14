@@ -7,6 +7,5 @@ export function saveResult(playerName, mineAmount) {
     mines: mineAmount,
     date: new Date().toISOString(),
   };
-  console.log(result);
   localStorage.setItem(key, JSON.stringify(result));
 }
