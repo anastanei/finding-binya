@@ -55,60 +55,55 @@ export class Minesweeper {
     this.cellNodes = {};
     this.createEmptyField(this.matrix);
 
-    let touchStartTime = 0;
     let longPressTimeout;
     const longPressDuration = 300;
 
-    const handleAction = (event, isLongPress = false) => {
-      const cell = this.getCell(event);
-      if (cell) {
-        const [node, x, y] = cell;
-
-        if (isLongPress) {
-          this.handleContextMenu(cell);
-        } else {
-          if (!this.isStarted) {
-            this.handleFirstMove(x, y);
-          }
-          const matrixItem = this.getMatrixValue(x, y);
-          if (matrixItem === 0) {
-            this.openCell(node, matrixItem);
-            this.openAdjacentWhileEmpty(x, y);
-          } else if (matrixItem === "mine") {
-            this.handleLosing();
-          } else {
-            this.openCell(node, matrixItem);
-          }
-        }
-      }
-    };
-
     this.container.addEventListener("click", (event) => {
-      handleAction(event, false);
+      this.handleAction(event, false);
     });
 
     this.container.addEventListener("contextmenu", (event) => {
       event.preventDefault();
-      handleAction(event, true);
+      this.handleAction(event, true);
     });
 
     this.container.addEventListener("touchstart", (event) => {
-      touchStartTime = Date.now();
       longPressTimeout = setTimeout(() => {
-        handleAction(event, true);
+        this.handleAction(event, true);
       }, longPressDuration);
     });
 
-    this.container.addEventListener("touchend", (event) => {
+    this.container.addEventListener("touchend", () => {
       clearTimeout(longPressTimeout);
-      if (Date.now() - touchStartTime < longPressDuration) {
-        handleAction(event, false);
-      }
     });
 
     this.container.addEventListener("touchmove", () => {
       clearTimeout(longPressTimeout);
     });
+  }
+
+  handleAction(event, isLongPress = false) {
+    const cell = this.getCell(event);
+    if (cell) {
+      const [node, x, y] = cell;
+
+      if (isLongPress) {
+        this.handleContextMenu(cell);
+      } else {
+        if (!this.isStarted) {
+          this.handleFirstMove(x, y);
+        }
+        const matrixItem = this.getMatrixValue(x, y);
+        if (matrixItem === 0) {
+          this.openCell(node, matrixItem);
+          this.openAdjacentWhileEmpty(x, y);
+        } else if (matrixItem === "mine") {
+          this.handleLosing();
+        } else {
+          this.openCell(node, matrixItem);
+        }
+      }
+    }
   }
 
   handleContextMenu(cell) {
@@ -328,37 +323,6 @@ export class Minesweeper {
         const cell = new Cell(x, y).getNode();
         this.container.appendChild(cell);
         this.cellNodes[`${x},${y}`] = cell;
-
-        cell.addEventListener("click", (event) => {
-          this.handleCellAction(event, false);
-        });
-
-        cell.addEventListener("contextmenu", (event) => {
-          event.preventDefault();
-          this.handleCellAction(event, true);
-        });
-
-        let touchStartTime = 0;
-        let longPressTimeout;
-        const longPressDuration = 500;
-
-        cell.addEventListener("touchstart", (event) => {
-          touchStartTime = Date.now();
-          longPressTimeout = setTimeout(() => {
-            this.handleCellAction(event, true);
-          }, longPressDuration);
-        });
-
-        cell.addEventListener("touchend", (event) => {
-          clearTimeout(longPressTimeout);
-          if (Date.now() - touchStartTime < longPressDuration) {
-            this.handleCellAction(event, false);
-          }
-        });
-
-        cell.addEventListener("touchmove", () => {
-          clearTimeout(longPressTimeout);
-        });
       });
     });
   }
