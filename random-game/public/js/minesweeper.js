@@ -73,13 +73,12 @@ export class Minesweeper {
       }, longPressDuration);
     });
 
-    this.container.addEventListener("touchend", () => {
+    const resetLongPress = () => {
       clearTimeout(longPressTimeout);
-    });
+    };
 
-    this.container.addEventListener("touchmove", () => {
-      clearTimeout(longPressTimeout);
-    });
+    this.container.addEventListener("touchend", resetLongPress);
+    this.container.addEventListener("touchcancel", resetLongPress);
   }
 
   handleAction(event, isLongPress = false) {
