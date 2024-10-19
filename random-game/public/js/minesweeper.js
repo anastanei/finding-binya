@@ -207,7 +207,6 @@ export class Minesweeper {
   }
 
   handleWin() {
-    console.log('win');
     this.openMines();
     this.hideEl('[data-game-video]', false);
     this.showEl('[data-win-video]');
