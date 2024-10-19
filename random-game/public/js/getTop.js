@@ -6,7 +6,6 @@ export function getTop(limit = 10) {
     const key = localStorage.key(i);
     if (key.startsWith(prefix)) {
       const result = JSON.parse(localStorage.getItem(key));
-      console.log(result);
       results.push(result);
     }
   }
