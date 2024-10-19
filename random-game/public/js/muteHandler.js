@@ -1,6 +1,6 @@
 export class MuteHandler {
   constructor() {
-    this.prefix = 'belialbehemothbeelzebub_';
+    this.prefix = 'belialbehemothbeelzebub_mute-handler';
     this.isMuted = this.get();
   }
 

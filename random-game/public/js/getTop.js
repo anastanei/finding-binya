@@ -1,11 +1,12 @@
 export function getTop(limit = 10) {
   const results = [];
-  const prefix = "belialbehemothbeelzebub_";
+  const prefix = 'belialbehemothbeelzebub_game_result';
 
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (key.startsWith(prefix)) {
       const result = JSON.parse(localStorage.getItem(key));
+      console.log(result);
       results.push(result);
     }
   }

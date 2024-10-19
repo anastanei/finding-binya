@@ -166,7 +166,8 @@ export class Minesweeper {
     }
 
     node.textContent = '';
-    if (this.disabledCount === this.maxDisabledCount) {
+
+    if (!isMine && this.disabledCount === this.maxDisabledCount) {
       this.handleWin();
     }
 
@@ -179,7 +180,6 @@ export class Minesweeper {
         <use xlink:href="#icon-heart"></use>
       </svg>`
       );
-      this.disabledCount = 0;
     }
   }
 
@@ -207,6 +207,7 @@ export class Minesweeper {
   }
 
   handleWin() {
+    console.log('win');
     this.openMines();
     this.hideEl('[data-game-video]', false);
     this.showEl('[data-win-video]');
