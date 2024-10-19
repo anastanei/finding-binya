@@ -21,10 +21,12 @@ export class Music {
   }
 
   mute() {
-    this.audio.volume = 0;
+    this.audio.muted = true;
+    // this.audio.volume = 0;
   }
 
   unmute() {
-    this.audio.volume = this.defaultVolume;
+    this.audio.muted = false;
+    // this.audio.volume = this.defaultVolume;
   }
 }
