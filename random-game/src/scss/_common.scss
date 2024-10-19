@@ -5,7 +5,7 @@
 }
 
 .custom-hover {
-  @apply transition-all duration-300 ease-out active:opacity-50;
+  @apply transition-all duration-300 ease-out active:translate-y-1;
 }
 
 @media (hover: hover) {
@@ -32,7 +32,7 @@
   @apply relative;
 
   &::before {
-    content: "";
+    content: '';
     @apply absolute -top-2 -bottom-2 -left-2 -right-2;
   }
 }

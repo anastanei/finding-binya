@@ -1,7 +1,5 @@
-// @import "_reset.scss";
-@import "./colors.scss";
-// @import "_constants.scss";
-@import "./fonts.scss";
+@import './colors.scss';
+@import './fonts.scss';
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -21,7 +19,7 @@
 }
 
 html {
-  @apply bg-custom-background;
+  @apply bg-custom-secondaryBackground;
 }
 
 .container-custom {

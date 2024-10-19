@@ -4,7 +4,7 @@ import { createDialog } from './createDialog.js';
 import { saveResult } from './saveResult.js';
 
 export class Minesweeper {
-  constructor(cols, rows, mines, containerSelector, playerName) {
+  constructor(cols, rows, mines, containerSelector, playerName, musicPlayer) {
     this.cols = cols;
     this.rows = rows;
     this.length = this.cols * this.rows;
@@ -19,6 +19,7 @@ export class Minesweeper {
     );
     this.reset();
     this.name = playerName;
+    this.player = musicPlayer;
   }
 
   reset() {
@@ -192,7 +193,7 @@ export class Minesweeper {
         messageElement.textContent = message;
       }
     } else {
-      dialogNode = createDialog(status);
+      dialogNode = createDialog(status, this.player);
       document.body.prepend(dialogNode);
     }
     return dialogNode;

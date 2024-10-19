@@ -29,7 +29,7 @@
 }
 
 html {
-  @apply bg-custom-background;
+  @apply bg-custom-secondaryBackground;
 }
 
 .container-custom {
@@ -56,7 +56,7 @@ html {
   }
 }
 .custom-hover {
-  @apply transition-all duration-300 ease-out active:opacity-50;
+  @apply transition-all duration-300 ease-out active:translate-y-1;
 }
 
 @media (hover: hover) {

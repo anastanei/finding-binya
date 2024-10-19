@@ -41,7 +41,7 @@
 
 html {
   --tw-bg-opacity: 1;
-  background-color: rgb(98 78 136 / var(--tw-bg-opacity));
+  background-color: rgb(137 103 179 / var(--tw-bg-opacity));
 }
 
 .container-custom {
@@ -104,7 +104,8 @@ html {
 }
 
 .custom-hover:active {
-  opacity: 0.5;
+  --tw-translate-y: 0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 @media (hover: hover) {
@@ -992,12 +993,20 @@ video {
   right: 0px;
 }
 
+.right-2 {
+  right: 0.5rem;
+}
+
 .top-0 {
   top: 0px;
 }
 
 .top-1\/2 {
   top: 50%;
+}
+
+.top-2 {
+  top: 0.5rem;
 }
 
 .z-10 {
@@ -1065,6 +1074,10 @@ video {
   height: 50%;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
 .h-2 {
   height: 0.5rem;
 }
@@ -1107,6 +1120,10 @@ video {
 
 .w-1\/3 {
   width: 33.333333%;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .w-3 {
@@ -1341,6 +1358,10 @@ video {
   background-color: rgb(98 78 136 / var(--tw-bg-opacity));
 }
 
+.bg-custom-background\/80 {
+  background-color: rgb(98 78 136 / 0.8);
+}
+
 .bg-custom-secondaryBackground {
   --tw-bg-opacity: 1;
   background-color: rgb(137 103 179 / var(--tw-bg-opacity));
@@ -1362,10 +1383,6 @@ video {
 
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
-}
-
-.bg-opacity-80 {
-  --tw-bg-opacity: 0.8;
 }
 
 .fill-custom-secondaryBackground {
@@ -1470,11 +1487,6 @@ video {
   line-height: 1.5;
 }
 
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
 .text-custom-background {
   --tw-text-opacity: 1;
   color: rgb(98 78 136 / var(--tw-text-opacity));
@@ -1557,12 +1569,6 @@ video {
   background-color: rgb(250 188 63 / var(--tw-bg-opacity));
 }
 
-.hover\:shadow-custom-inset-hover:hover {
-  --tw-shadow: inset 3px 3px 5px #FFCD5F, inset -3px -3px 5px #CCAA24;
-  --tw-shadow-colored: inset 3px 3px 5px var(--tw-shadow-color), inset -3px -3px 5px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1603,11 +1609,6 @@ video {
 
 .disabled\:pointer-events-none:disabled {
   pointer-events: none;
-}
-
-.disabled\:bg-custom-accent:disabled {
-  --tw-bg-opacity: 1;
-  background-color: rgb(250 188 63 / var(--tw-bg-opacity));
 }
 
 .disabled\:bg-custom-background:disabled {
