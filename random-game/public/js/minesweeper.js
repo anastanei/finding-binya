@@ -1,7 +1,7 @@
-import { getRandomNumber } from "./getRandomNumber.js";
-import { Cell } from "./cell.js";
-import { createDialog } from "./createDialog.js";
-import { saveResult } from "./saveResult.js";
+import { getRandomNumber } from './getRandomNumber.js';
+import { Cell } from './cell.js';
+import { createDialog } from './createDialog.js';
+import { saveResult } from './saveResult.js';
 
 export class Minesweeper {
   constructor(cols, rows, mines, containerSelector, playerName) {
@@ -14,7 +14,7 @@ export class Minesweeper {
     this.maxDisabledCount = this.length - this.mineAmount;
     this.container = document.querySelector(containerSelector);
     this.container.style.setProperty(
-      "grid-template-columns",
+      'grid-template-columns',
       `repeat(${this.cols}, minmax(1.5rem, 1fr))`
     );
     this.reset();
@@ -38,11 +38,11 @@ export class Minesweeper {
     this.container.replaceWith(newContainer);
     this.container = newContainer;
 
-    this.showEl("[data-game-video]", false);
-    this.hideEl("[data-win-video]");
+    this.showEl('[data-game-video]', false);
+    this.hideEl('[data-win-video]');
 
     this.container.style.setProperty(
-      "grid-template-columns",
+      'grid-template-columns',
       `repeat(${this.cols}, minmax(1.5rem, 1fr))`
     );
 
@@ -58,16 +58,16 @@ export class Minesweeper {
     let longPressTimeout;
     const longPressDuration = 100;
 
-    this.container.addEventListener("click", (event) => {
+    this.container.addEventListener('click', (event) => {
       this.handleAction(event, false);
     });
 
-    this.container.addEventListener("contextmenu", (event) => {
+    this.container.addEventListener('contextmenu', (event) => {
       event.preventDefault();
       this.handleAction(event, true);
     });
 
-    this.container.addEventListener("touchstart", (event) => {
+    this.container.addEventListener('touchstart', (event) => {
       longPressTimeout = setTimeout(() => {
         this.handleAction(event, true);
       }, longPressDuration);
@@ -77,8 +77,8 @@ export class Minesweeper {
       clearTimeout(longPressTimeout);
     };
 
-    this.container.addEventListener("touchend", resetLongPress);
-    this.container.addEventListener("touchcancel", resetLongPress);
+    this.container.addEventListener('touchend', resetLongPress);
+    this.container.addEventListener('touchcancel', resetLongPress);
   }
 
   handleAction(event, isLongPress = false) {
@@ -96,7 +96,7 @@ export class Minesweeper {
         if (matrixItem === 0) {
           this.openCell(node, matrixItem);
           this.openAdjacentWhileEmpty(x, y);
-        } else if (matrixItem === "mine") {
+        } else if (matrixItem === 'mine') {
           this.handleLosing();
         } else {
           this.openCell(node, matrixItem);
@@ -107,13 +107,13 @@ export class Minesweeper {
 
   handleContextMenu(cell) {
     const [node] = cell;
-    const svg = node.querySelector("[data-cell-svg]");
+    const svg = node.querySelector('[data-cell-svg]');
 
     if (svg) {
       svg.remove();
     } else {
       node.insertAdjacentHTML(
-        "afterbegin",
+        'afterbegin',
         `<svg class="cell-svg cursor-pointer text-custom-background" fill="currentColor" data-cell-svg>
          <use xlink:href="#icon-danger"></use>
        </svg>`
@@ -123,9 +123,9 @@ export class Minesweeper {
   }
 
   blockCell(node) {
-    node.style.pointerEvents = "none";
+    node.style.pointerEvents = 'none';
     setTimeout(() => {
-      node.style.pointerEvents = "auto";
+      node.style.pointerEvents = 'auto';
     }, 300);
   }
 
@@ -135,7 +135,7 @@ export class Minesweeper {
     this.setEmptyStartingCells([[x, y], ...adjacents]);
     this.minePositions = this.getMinePositions(this.mineAmount, this.array, [
       [x, y],
-      ...adjacents,
+      ...adjacents
     ]);
     this.minePositions.forEach(([x, y]) => this.setMatrixValues(x, y));
   }
@@ -145,46 +145,49 @@ export class Minesweeper {
       const node = this.getCellFromPosition(x, y);
       this.openCell(node, this.getMatrixValue(x, y), true);
       node.insertAdjacentHTML(
-        "afterbegin",
+        'afterbegin',
         `<svg class="cell-svg text-custom-secondaryAccent" fill="currentColor">
         <use xlink:href="#icon-heart"></use>
         </svg>`
       );
-      this.container.classList.add("pointer-events-none");
+      this.container.classList.add('pointer-events-none');
     });
   }
 
   openCell(node, matrixItem, isMine = false) {
     if (node.disabled) return;
+
     node.disabled = true;
+    node.style.pointerEvents = 'none';
+
     if (!isMine) {
       this.disabledCount += 1;
     }
 
-    node.textContent = "";
+    node.textContent = '';
     if (this.disabledCount === this.maxDisabledCount) {
-      node.classList.remove("disabled:bg-custom-background");
-      node.classList.add("disabled:bg-custom-accent");
+      this.handleWin();
+    }
+
+    if (matrixItem !== 0 && matrixItem !== 'mine') {
+      node.textContent = matrixItem;
+    } else if (isMine) {
       node.insertAdjacentHTML(
-        "afterbegin",
-        `<svg class="cell-svg cursor-pointer text-black" version="1.0" xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512" fill="currentColor">
-        <path d="M481.875,299.344L512,292.219l-4.656-19.641l-24.25,5.734c0-0.328,0.016-0.641,0.016-0.969 c0-38.078-10.531-72.781-28.969-102.359c15.438-53.938-13.438-124.547-13.438-124.547S387.813,73,357.719,100.297 C327.109,91.063,292.578,88.094,256,88.094c-36.766,0-71.484,2.563-102.203,11.781c-30.156-27.109-82.5-49.438-82.5-49.438 S42.406,121.063,57.859,175c-18.422,29.578-28.984,64.281-28.984,102.344c0,0.328,0.031,0.641,0.031,0.969l-24.25-5.734L0,292.219 l30.109,7.125c2.672,23.578,9.672,44.75,20.234,63.422L12.875,377.75l7.484,18.75l41.203-16.484 c39.797,53.141,111.969,81.547,194.438,81.547c82.453,0,154.641-28.406,194.438-81.547l41.203,16.484l7.484-18.75l-37.469-14.984 C472.219,344.094,479.219,322.922,481.875,299.344z"/>
-        </svg>`
+        'afterbegin',
+        `<svg class="cell-svg text-custom-secondaryAccent" fill="currentColor">
+        <use xlink:href="#icon-heart"></use>
+      </svg>`
       );
       this.disabledCount = 0;
-      this.handleWin();
-    } else if (matrixItem !== 0 && matrixItem !== "mine") {
-      node.textContent = matrixItem;
     }
   }
 
   checkDialog(status) {
-    let dialogNode = document.querySelector(".dialog");
-    const message = status === "win" ? "You've won!" : "You've lost :(";
+    let dialogNode = document.querySelector('.dialog');
+    const message = status === 'win' ? "You've won!" : "You've lost :(";
 
     if (dialogNode) {
-      const messageElement = dialogNode.querySelector(".dialog-message");
+      const messageElement = dialogNode.querySelector('.dialog-message');
       if (messageElement) {
         messageElement.textContent = message;
       }
@@ -196,44 +199,44 @@ export class Minesweeper {
   }
 
   handleLosing() {
-    this.hideEl("[data-game-video]", false);
+    this.hideEl('[data-game-video]', false);
     this.openMines();
-    const dialogNode = this.checkDialog("lose");
+    const dialogNode = this.checkDialog('lose');
     dialogNode.showModal();
   }
 
   handleWin() {
     this.openMines();
-    this.hideEl("[data-game-video]", false);
-    this.showEl("[data-win-video]");
+    this.hideEl('[data-game-video]', false);
+    this.showEl('[data-win-video]');
     saveResult(this.name, this.mineAmount);
-    const dialogNode = this.checkDialog("win");
+    const dialogNode = this.checkDialog('win');
     dialogNode.showModal();
-    this.container.classList.add("pointer-events-none");
+    this.container.classList.add('pointer-events-none');
   }
 
   showEl(selector, visible = true) {
     const el = document.querySelector(selector);
-    el.classList.add("custom-visible");
-    el.classList.remove("custom-hidden");
+    el.classList.add('custom-visible');
+    el.classList.remove('custom-hidden');
 
     if (visible) {
-      el.classList.add("custom-visible");
-      el.classList.remove("custom-hidden");
+      el.classList.add('custom-visible');
+      el.classList.remove('custom-hidden');
     } else {
-      el.classList.remove("opacity-0");
-      el.classList.add("opacity-100");
+      el.classList.remove('opacity-0');
+      el.classList.add('opacity-100');
     }
   }
 
   hideEl(selector, visible = true) {
     const el = document.querySelector(selector);
     if (visible) {
-      el.classList.add("custom-hidden");
-      el.classList.remove("custom-visible");
+      el.classList.add('custom-hidden');
+      el.classList.remove('custom-visible');
     } else {
-      el.classList.add("opacity-0");
-      el.classList.remove("opacity-100");
+      el.classList.add('opacity-0');
+      el.classList.remove('opacity-100');
     }
   }
 
@@ -258,10 +261,10 @@ export class Minesweeper {
   }
 
   setMatrixValues(x, y) {
-    this.setMatrixValue(x, y, "mine");
+    this.setMatrixValue(x, y, 'mine');
     const adjacents = this.getAdjacents(x, y);
     adjacents.forEach(([adjX, adjY]) => {
-      if (this.getMatrixValue(adjX, adjY) !== "mine") {
+      if (this.getMatrixValue(adjX, adjY) !== 'mine') {
         this.setMatrixValue(adjX, adjY, this.getMatrixValue(adjX, adjY) + 1);
       }
     });
@@ -314,8 +317,8 @@ export class Minesweeper {
   }
 
   createEmptyField(matrix) {
-    this.container.classList.remove("pointer-events-none");
-    this.container.textContent = "";
+    this.container.classList.remove('pointer-events-none');
+    this.container.textContent = '';
 
     matrix.forEach((row, y) => {
       row.forEach((_, x) => {
@@ -336,7 +339,7 @@ export class Minesweeper {
       [0, 1],
       [1, -1],
       [1, 0],
-      [1, 1],
+      [1, 1]
     ];
     directions.forEach(([dirY, dirX]) => {
       const newY = dirY + y;
@@ -351,14 +354,14 @@ export class Minesweeper {
   getCell(event) {
     const selector = '[data-cell="true"]';
     let targetElement = event.target;
-    if (targetElement.tagName === "use") {
-      targetElement = targetElement.closest("svg");
+    if (targetElement.tagName === 'use') {
+      targetElement = targetElement.closest('svg');
     }
     const cell = targetElement.closest(selector);
 
     if (cell) {
-      const x = cell.getAttribute("data-xpos");
-      const y = cell.getAttribute("data-ypos");
+      const x = cell.getAttribute('data-xpos');
+      const y = cell.getAttribute('data-ypos');
       return [cell, parseInt(x), parseInt(y)];
     } else {
       return null;
