@@ -1,0 +1,76 @@
+@media (hover: hover) {
+  .custom-hover {
+    @apply hover:text-custom-accent;
+  }
+}
+
+.custom-hover {
+  @apply transition-all duration-300 ease-out active:translate-y-1;
+}
+
+@media (hover: hover) {
+  .custom-bg-hover {
+    @apply hover:bg-custom-accent;
+  }
+}
+
+@media (hover: hover) {
+  .hover-cell {
+    @apply hover:cursor-pointer hover:bg-custom-accent hover:shadow-custom-inset-hover;
+  }
+}
+
+.custom-bg-hover {
+  @apply transition-all duration-300 ease-out active:translate-y-1;
+}
+
+.custom-bg-hover--accent {
+  @apply hover:bg-custom-text;
+}
+
+.extend-click {
+  @apply relative;
+
+  &::before {
+    content: '';
+    @apply absolute -top-2 -bottom-2 -left-2 -right-2;
+  }
+}
+
+.footer-svg {
+  @apply inline w-full h-full;
+}
+
+@media (any-hover: none) and (any-pointer: coarse) {
+  .touch-only {
+    display: block;
+  }
+}
+
+@media (any-hover: hover) and (any-pointer: fine) {
+  .touch-only {
+    display: none;
+  }
+}
+
+.custom-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-height {
+  min-height: 100vh;
+  height: auto;
+}
+
+.custom-hidden {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  min-height: 0;
+  height: 0;
+}
+
+.bigger-text {
+  @apply text-xl sm:text-2xl lg:text-3xl 2xl:text-4xl;
+}

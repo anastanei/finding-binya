@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Find the Cat">
+  <link rel="stylesheet" href="./public/css/modern-normalize.css">
+  <link rel="stylesheet" href="./public/css/tailwind.css">
+
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" href="./public/favicon/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./public/favicon/apple-touch-icon-180x180.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+
+  <title>Finding Binya</title>
+</head>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="icon-heart" viewBox="0 0 13.999 12">
+    <path xmlns="http://www.w3.org/2000/svg"
+      d="m11.959 0.328c-1.147-0.531-2.518-0.393-3.573 0.242l-1.148 2.508 2.274 1.98-2.38 3.216 0.871-2.995-2.914-1.967 0.858-2.525c-1.085-0.812-2.617-1.045-3.884-0.459-1.901 0.882-2.81 3.135-1.308 5.794 1.067 1.891 2.958 3.317 6.256 5.872 3.299-2.555 5.189-3.98 6.257-5.872 1.502-2.659 0.592-4.912-1.309-5.794z" />
+  </symbol>
+  <symbol id="icon-danger" viewBox="0 0 512 512">
+    <path xmlns="http://www.w3.org/2000/svg"
+      d="M507.494,426.066L282.864,53.537c-5.677-9.415-15.87-15.172-26.865-15.172c-10.995,0-21.188,5.756-26.865,15.172    L4.506,426.066c-5.842,9.689-6.015,21.774-0.451,31.625c5.564,9.852,16.001,15.944,27.315,15.944h449.259    c11.314,0,21.751-6.093,27.315-15.944C513.508,447.839,513.336,435.755,507.494,426.066z M256.167,167.227    c12.901,0,23.817,7.278,23.817,20.178c0,39.363-4.631,95.929-4.631,135.292c0,10.255-11.247,14.554-19.186,14.554    c-10.584,0-19.516-4.3-19.516-14.554c0-39.363-4.63-95.929-4.63-135.292C232.021,174.505,242.605,167.227,256.167,167.227z     M256.498,411.018c-14.554,0-25.471-11.908-25.471-25.47c0-13.893,10.916-25.47,25.471-25.47c13.562,0,25.14,11.577,25.14,25.47    C281.638,399.11,270.06,411.018,256.498,411.018z" />
+  </symbol>
+  <symbol id="icon-ghost" viewBox="0 0 1510.15 1279.17">
+    <path xmlns="http://www.w3.org/2000/svg"
+      d="M916.29,1455.79c-161.78,12-301.35-101.8-393.52-224.28-31.92-25.19-68.93,31.79-114.23,20.36-147.66-21.25-126.9-29.94-155.92,112.82-108.27,70.48-127-318.13-91.09-378.43,72-187.53,151.35-44,244.56,20.7,65.07-57.18-194.42-220.57-31.49-562.87,149-337.49,680.54-171,640.76,185.08,10,94.65-51,209.26,3.56,292.83,87.13,11.48,128.28-210.64,226.47-122.09,77.72,160.64,65.55,222,233,331.22,31.68,44.51-39.27,76.4-73.54,87.43-85.22,31.19-167.52-35.33-251.44-26.39-71.33,7.06-51.7,63.2,3.44,79.31,89.29,37.94,226.12-37.19,274.72,78.89,24.31,93.14,116,90.47,193.47,95.92,65,21.76,11,89.36-36.68,88.93-173.29,35.71-296.93-160.81-466.31-121.83C1054.81,1432.05,985.29,1451.79,916.29,1455.79ZM629.08,766.5C598.49,602.74,527.24,800.59,578,862,626.49,906.52,637,791.29,629.08,766.5ZM433.27,585.15c27.59,204.68,168-103.84,50.23-123.79C440.58,480.5,433,543.76,433.27,585.15ZM662.93,519.6c-4.46,40,13.55,173.48,73.91,126.58C794.65,577.12,694.44,328.89,662.93,519.6Z"
+      transform="translate(-144.92 -260.42)" />
+  </symbol>
+
+</svg>
+
+<body class="text-xs leading-none font-georgia sm:text-lg lg:text-base 2xl:text-xl text-custom-text">
+  <div class="flex flex-col justify-between min-h-screen">
+    <main class="relative py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 grow items-center justify-center flex ">
+      <div class="absolute inset-0 h-full">
+        <div class="relative backround-sky text-custom-text overflow-x-hidden bg-custom-text  h-full">
+          <div
+            class="background-house-clip-path background-house-custom-width absolute bottom-0 left-0 h-1/2 bg-custom-background items-end"
+            data-houses>
+
+          </div>
+        </div>
+      </div>
+      <div class="relative container container-custom  w-auto overflow-x-auto" data-main>
+        <div class="text-xs inline-grid gap-1 bg-opacity-50 justify-center p-3 bg-custom-text w-auto align-center "
+          data-container>
+        </div>
+      </div>
+    </main>
+    <footer class="relative py-4 text-sm  lg:py-8 md:text-base xl:text-xl">
+      <div class="absolute inset-0 ">
+        <div class="bg-custom-secondaryBackground paving relative w-full h-full">
+        </div>
+      </div>
+      <div class="container container-custom relative z-10 flex flex-row items-end justify-center gap-5 ">
+        <img class="w-52 max-w-[30dvh] block transition-opacity duration-600 ease-out" height="252" width="320"
+          src="./public/img/cat_hides.gif" alt="" data-game-video>
+        <img class="w-80 block absolute custom-hidden transition-opacity duration-600 ease-out" height="1428"
+          width="1141" src="./public/img/girl.gif" alt="" data-win-video>
+      </div>
+      <div class="container relative z-10 container-custom  flex flex-col items-center justify-center gap-1 ">
+        <div class=" flex flex-row items-end justify-center gap-5 "><a class="w-7 h-7 custom-hover extend-click"
+            href="https://rs.school/courses/javascript-preschool-ru" target="_blank">
+            <svg class=" footer-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64">
+              <g clip-path="url(#a)">
+                <circle cx="32" cy="32" r="32" fill="currentColor" />
+                <path class="fill-custom-secondaryBackground" fill-rule="evenodd"
+                  d="M13 21.51V42.5l6.307-.038v-8.515c.75 0 1.455.03 2.098.48.49.452.879 1.007 1.141 1.627l3.374 6.408H33c-1.404-2.795-2.53-6.33-4.945-8.452a6.3 6.3 0 0 0-1.644-.769 7.9 7.9 0 0 0 2.22-.833c1.755-1.07 2.76-3.027 2.713-5.07a5.9 5.9 0 0 0-.945-3.394c-1.473-2.256-4.465-2.523-6.933-2.434zm8.994 8.502H19.33v-4.314h2.773c1.377-.139 3.077.477 2.982 2.106.064 1.758-1.721 2.109-3.092 2.208"
+                  clip-rule="evenodd" />
+                <path class="fill-custom-secondaryBackground"
+                  d="M39.477 35.089 33 35.467c.126 1.9 1.002 3.693 2.464 5.042q2.172 1.985 7.788 1.985c3.104.088 6.654-.68 8.569-3.337A6.08 6.08 0 0 0 53 35.564c.022-2.38-1.566-4.334-3.696-5.25A29.7 29.7 0 0 0 42.92 28.5a5.8 5.8 0 0 1-2.278-.743c-.738-.497-.564-1.53.093-1.997 1.873-1.24 4.895-.206 5.126 2.143l6.424-.34c-.115-1.795-1.1-3.508-2.65-4.605a11.9 11.9 0 0 0-6.436-1.437 15.1 15.1 0 0 0-5.43.792c-2.16.8-3.94 2.751-3.935 5.14-.04 1.485.682 2.956 1.921 3.91a15.6 15.6 0 0 0 6.384 2.435 9 9 0 0 1 3.483 1.218c.966.715.959 2.151-.026 2.874-1.088.763-2.693.852-3.914.357-1.31-.531-2.077-1.769-2.205-3.158" />
+              </g>
+              <defs>
+                <clipPath id="a">
+                  <path fill="#fff" d="M0 0h64v64H0z" />
+                </clipPath>
+              </defs>
+            </svg>
+          </a>
+          <span class="select-none">2024</span>
+          <a class="w-7 h-7 custom-hover extend-click" href="https://github.com/anastanei" target="_blank">
+            <svg class="w-full h-full footer-svg" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.21 11.43c.6.11.82-.26.82-.58 0-.28-.01-1.02-.02-2.01-3.34.73-4.04-1.61-4.04-1.61-.55-1.4-1.35-1.77-1.35-1.77-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .11-.79.42-1.32.76-1.63-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.45 11.45 0 013.01-.4 11.5 11.5 0 013.01.4c2.28-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.21 0 1.6-.02 2.88-.02 3.27 0 .32.22.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+          </a>
+        </div>
+        <div><a href="https://t.me/clive_lewi" class="custom-hover extend-click" target="_blank">animations by Clive's
+          </a>
+          <div class="text-xs select-none text-center">(thank you! 1 <3 from 1)</div>
+          </div>
+        </div>
+    </footer>
+  </div>
+  <div id="modal"
+    class="select-none absolute top-0 left-0 right-0  flex items-center justify-center custom-visible bg-custom-background  text-custom-text z-50 modal-height transition-all duration-500 ease-out"
+    data-modal>
+  </div>
+  <button class="absolute top- z-50 top-2 right-2 w-10 h-10 extend-click custom-hover" type="button" data-sound-button>
+    <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path xmlns="http://www.w3.org/2000/svg"
+        d="M3.13868 13.8978C2.4378 12.7296 2.4378 11.2703 3.13868 10.1022C3.36728 9.72119 3.75538 9.46349 4.19522 9.40066L6.52622 9.06766C6.82769 9.02459 7.09655 8.85515 7.26548 8.60176L7.63257 8.05112C7.92332 7.61499 8.0687 7.39693 8.23036 7.20088C8.80072 6.50919 9.54657 5.98357 10.3898 5.67908C10.6288 5.59277 10.8831 5.52921 11.3916 5.40208L12.0046 5.24882C12.3447 5.1638 12.5147 5.12129 12.6486 5.16295C12.7648 5.19912 12.8638 5.27645 12.9271 5.38042C13 5.50017 13 5.67545 13 6.026V17.974C13 18.3245 13 18.4998 12.9271 18.6195C12.8638 18.7235 12.7648 18.8008 12.6486 18.837C12.5147 18.8787 12.3447 18.8361 12.0046 18.7511L11.3916 18.5979C10.8831 18.4707 10.6288 18.4072 10.3898 18.3209C9.54657 18.0164 8.80072 17.4908 8.23036 16.7991C8.0687 16.603 7.92332 16.385 7.63257 15.9488L7.26548 15.3982C7.09655 15.1448 6.82769 14.9754 6.52621 14.9323L4.19522 14.5993C3.75538 14.5365 3.36728 14.2788 3.13868 13.8978Z" />
+      <path class="custom-visible" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"
+        d="M15.0052 7.93411C15.2981 7.64122 15.773 7.64122 16.0659 7.93411C17.1386 9.0069 17.744 10.4602 17.75 11.9773C17.7559 13.4945 17.1621 14.9525 16.0978 16.0337C15.8072 16.3289 15.3323 16.3326 15.0371 16.042C14.742 15.7515 14.7382 15.2766 15.0288 14.9814C15.8154 14.1823 16.2544 13.1046 16.25 11.9832C16.2456 10.8619 15.7981 9.7877 15.0052 8.99477C14.7123 8.70188 14.7123 8.227 15.0052 7.93411Z"
+        data-sound-play-path />
+      <path class="custom-hidden" xmlns="http://www.w3.org/2000/svg"
+        d="M20.7071 9.29293C21.0976 9.68345 21.0976 10.3166 20.7071 10.7071L19.4142 12L20.7071 13.2929C21.0976 13.6835 21.0976 14.3166 20.7071 14.7071C20.3166 15.0977 19.6834 15.0977 19.2929 14.7071L18 13.4142L16.7071 14.7071C16.3166 15.0977 15.6834 15.0977 15.2929 14.7071C14.9024 14.3166 14.9024 13.6835 15.2929 13.2929L16.5858 12L15.2929 10.7071C14.9024 10.3166 14.9024 9.68345 15.2929 9.29293C15.6834 8.90241 16.3166 8.90241 16.7071 9.29293L18 10.5858L19.2929 9.29293C19.6834 8.90241 20.3166 8.90241 20.7071 9.29293Z"
+        data-sound-mute-path />
+    </svg>
+  </button>
+  <script type="module" src="./public/js/index.js"></script>
+</body>
+
+</html>

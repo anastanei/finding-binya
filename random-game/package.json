@@ -1,0 +1,37 @@
+{
+  "name": "js30-random-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "public/js/index.js",
+  "scripts": {
+    "style": "sass --watch --no-source-map src/scss:src",
+    "tailwind": "npx tailwindcss -i ./src/tailwind-input.scss -o ./public/css/tailwind.css --watch",
+    "prettier": "npx prettier --write .",
+    "eslint": "npx eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/anastanei-JSFEPRESCHOOL2024Q2.git"
+  },
+  "author": "Anastasiia Nikonova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/anastanei-JSFEPRESCHOOL2024Q2/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/anastanei-JSFEPRESCHOOL2024Q2#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "sass": "^1.79.4",
+    "tailwindcss": "^3.4.13"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  }
+}

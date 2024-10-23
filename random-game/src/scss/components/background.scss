@@ -1,0 +1,136 @@
+// @keyframes blink {
+//   0%,
+//   100% {
+//     opacity: 0.3;
+//   }
+//   50% {
+//     opacity: 0.6;
+//   }
+// }
+
+.backround-sky {
+  background: linear-gradient(
+    15deg,
+    $custom-accent 0%,
+    $custom-secondaryBackground 60%,
+    $custom-background 100%
+  );
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url('data:image/svg+xml,%3Csvg xmlns%3D"http%3A//www.w3.org/2000/svg" viewBox%3D"0 0 100 100"%3E%3Ccircle cx%3D"20" cy%3D"20" r%3D"1.5" fill%3D"%23E2D19E" /%3E%3Ccircle cx%3D"70" cy%3D"50" r%3D"1.5" fill%3D"%23E2D19E" /%3E%3Ccircle cx%3D"40" cy%3D"80" r%3D"1" fill%3D"%23E2D19E" /%3E%3Ccircle cx%3D"90" cy%3D"20" r%3D"1.2" fill%3D"%23E2D19E" /%3E%3Ccircle cx%3D"30" cy%3D"50" r%3D"1.7" fill%3D"%23E2D19E" /%3E%3C/svg%3E');
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.5;
+  }
+}
+
+.background-house-custom-width {
+  width: 240vh;
+  min-width: 100vw;
+}
+
+$houses-amount: 5;
+$first-house-width: 8%;
+$second-house-width: 9%;
+$both-house-width: 100% / $houses-amount;
+$space: $both-house-width - $first-house-width - $second-house-width;
+
+$houses-min-height: 55%;
+$first-house-max-height: 35%;
+$second-house-max-height: 0%;
+
+.background-house-clip-path {
+  display: grid;
+  grid-template-columns: repeat($houses-amount, $both-house-width);
+
+  clip-path: polygon(
+    0% 100%,
+    100% 100%,
+    //first house
+    100% $houses-min-height,
+    calc(
+        100% - $both-house-width * 1 + $both-house-width - $second-house-width /
+          2
+      )
+      $second-house-max-height,
+    calc(100% - $both-house-width * 1 + $first-house-width + $space)
+      $houses-min-height,
+    calc(100% - $both-house-width * 1 + $first-house-width) $houses-min-height,
+    calc(100% - $both-house-width * 1 + $first-house-width / 2)
+      $first-house-max-height,
+    calc(100% - $both-house-width * 1) $houses-min-height,
+
+    //second house
+    calc(100% - $both-house-width * 1) $houses-min-height,
+    calc(
+        100% - $both-house-width * 2 + $both-house-width - $second-house-width /
+          2
+      )
+      $second-house-max-height,
+    calc(100% - $both-house-width * 2 + $first-house-width + $space)
+      $houses-min-height,
+    calc(100% - $both-house-width * 2 + $first-house-width) $houses-min-height,
+    calc(100% - $both-house-width * 2 + $first-house-width / 2)
+      $first-house-max-height,
+    calc(100% - $both-house-width * 2) $houses-min-height,
+    //third house
+    calc(100% - $both-house-width * 2) $houses-min-height,
+    calc(
+        100% - $both-house-width * 3 + $both-house-width - $second-house-width /
+          2
+      )
+      $second-house-max-height,
+    calc(100% - $both-house-width * 3 + $first-house-width + $space)
+      $houses-min-height,
+    calc(100% - $both-house-width * 3 + $first-house-width) $houses-min-height,
+    calc(100% - $both-house-width * 3 + $first-house-width / 2)
+      $first-house-max-height,
+    calc(100% - $both-house-width * 3) $houses-min-height,
+
+    //fourth house
+    calc(100% - $both-house-width * 3) $houses-min-height,
+    calc(
+        100% - $both-house-width * 4 + $both-house-width - $second-house-width /
+          2
+      )
+      $second-house-max-height,
+    calc(100% - $both-house-width * 4 + $first-house-width + $space)
+      $houses-min-height,
+    calc(100% - $both-house-width * 4 + $first-house-width) $houses-min-height,
+    calc(100% - $both-house-width * 4 + $first-house-width / 2)
+      $first-house-max-height,
+    calc(100% - $both-house-width * 4) $houses-min-height,
+    //fifth house
+    calc(100% - $both-house-width * 4) $houses-min-height,
+    calc(
+        100% - $both-house-width * 5 + $both-house-width - $second-house-width /
+          2
+      )
+      $second-house-max-height,
+    calc(100% - $both-house-width * 5 + $first-house-width + $space)
+      $houses-min-height,
+    calc(100% - $both-house-width * 5 + $first-house-width) $houses-min-height,
+    calc(100% - $both-house-width * 5 + $first-house-width / 2)
+      $first-house-max-height,
+    calc(100% - $both-house-width * 5) $houses-min-height
+  );
+}
+@media (hover: hover) {
+  .background-window:hover .window-area {
+    @apply bg-opacity-10;
+  }
+}
+
+.paving {
+  &::before {
+  }
+}
